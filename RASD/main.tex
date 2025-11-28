@@ -1,0 +1,99 @@
+\input{commandsFile}
+
+\begin{document}
+
+%TITLE PAGE
+
+\begin{titlepage}
+
+%LOGO + TITLE 
+{\begin{table}[t!]
+\centering
+\begin{tabular}{c}
+\\ [3cm]
+\includegraphics[scale=0.7]{Images/PolimiLogo} \\ [1cm]
+{\textbf{\huge{Requirement Analysis and Specification Document}}} \\ [1cm]
+{\LARGE \textbf{Best Bike Paths}}\\ \\
+{\Large Bellomo Flavio} \\
+{\Large Pennino Salvatore} \\
+{\Large Samarani Anna} \\
+\end{tabular}
+\end{table}}~\\ [7cm]
+
+\end{titlepage}
+
+%Define deliverable specific info
+%Replace cell contents where needed
+\begin{table}[h!]
+\begin{tabu} to \textwidth { X[0.3,r,p] X[0.7,l,p] }
+\hline
+
+\textbf{Deliverable:} & RASD\\
+\textbf{Title:} & Requirement Analysis and Specification Document \\
+\textbf{Authors:} & Bellomo Flavio, Pennino Salvatore, Samarani Anna \\
+\textbf{Version:} & 1.0 \\ 
+\textbf{Date:} & 07-November-2025 \\
+\textbf{Download page:} & https://github.com/flavioblm/BellomoPenninoSamarani.git \\
+\textbf{Copyright:} & Copyright © 2025, Bellomo Flavio, Pennino Salvatore, Samarani Anna – All rights reserved \\
+\hline
+\end{tabu}
+\end{table}
+
+
+
+
+\setcounter{page}{2}
+
+
+%------------------------------------------------------------------------------------------------------------------------------------------------
+\newpage
+\addcontentsline{toc}{section}{Table of Contents}
+\tableofcontents
+\newpage
+\addcontentsline{toc}{section}{List of Figures}
+\listoffigures
+\addcontentsline{toc}{section}{List of Tables}
+\listoftables
+
+%------------------------------------------------------------------------------------------------------------------------------------------------
+\clearpage
+{\section{Introduction}}
+\label{sect:introduction}
+\input{Files/introduction}
+
+%------------------------------------------------------------------------------------------------------------------------------------------------
+\clearpage
+{\section{Overall Description}}
+\label{sect:overview}
+\input{Files/overview}
+
+%------------------------------------------------------------------------------------------------------------------------------------------------
+\clearpage
+{\section{Specific Requirements}}
+\label{sect:requirements}
+\input{Files/requirements}
+
+%------------------------------------------------------------------------------------------------------------------------------------------------
+\clearpage
+{\section{Formal Analysis Using Alloy}}
+\label{sect:alloy}
+\input{Files/alloy}
+
+%------------------------------------------------------------------------------------------------------------------------------------------------
+\clearpage
+{\section{Effort Spent}}
+\label{sect:effort}
+\input{Files/effort}
+
+
+%------------------------------------------------------------------------------------------------------------------------------------------------
+\clearpage
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{plain}
+\bibliography{main}
+%------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+\end{document}
+
