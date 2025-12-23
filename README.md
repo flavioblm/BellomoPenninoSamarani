@@ -1,0 +1,1 @@
+We used overleaf as a collaborative writing tool that keeps track of the contributions of each one inside the history of the document. The link to access to the project is the following one: https://www.overleaf.com/read/xcvnftwcxkzf#eeb8e1 
