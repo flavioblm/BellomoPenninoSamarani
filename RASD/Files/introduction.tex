@@ -2,20 +2,85 @@
 The increasing focus on sustainability and eco-friendly mobility has encouraged many people to use bikes to move around the city, both for daily trips and for sport.
 However, traditional navigation systems are not designed specifically for cyclists. They are mainly optimized for the shortest distance or travel time and do not show important information for a bike trip, such as road surface quality, typical car speed on those streets, or the presence of obstacles and potholes, which are essential for a cyclist who wants to plan a safe and comfortable route. Cyclists, especially those with sports goals, also need a way to keep an inventory of their past routes and progress.
 The purpose of Best Bike Paths (BBP) is to provide cyclists a place where they can find, rate, and share good bike paths and manage their own. 
-The system records trips, collects sensor and weather condition data, and lets users add details about the status and of paths. Users can publish their tracks, explore and rate routes made by others, and in this way a community of cyclists is created. Among the shared routes, the application highlights and suggests those that are considered the safest and best rated by the community.In this way, BBP helps make cycling safer, more informed, and more enjoyable for its community.
+The system records trips, collects sensor and weather condition data, and lets users add details about the status and of paths. Users can publish their tracks, explore and follow routes made by others, and in this way a community of cyclists is created. Among the shared routes, the application highlights and suggests those that are considered the most effective and the best rated by the community. In this way, BBP helps make cycling safer, more informed, and more enjoyable for its community.
 \subsubsection{Goals}
-\textbf{G1:} Users can manually create bike paths or alternatively be assisted by the system to automatically track the paths thanks to the mobile device's sensors. Subsequently, the paths can be reviewed and enriched with general information and with a status before being saved inside the inventory. \\ [2mm]
-\textbf{G2:} Users can visualize their own inventory and search for their saved paths with their statistics and status that are enriched by meteorological information provided by external services. \\ [2mm] 
-\textbf{G3:} Users can publish their paths, sharing them with the community, creating a social component in the system where users can discover different paths proposed by others. \\ [2mm]
-\textbf{G4:} Given a starting point and a destination, the software suggests the best route to the user considering a ranking created from the scores assigned to each path and evaluated based on the status provided by one or more users and its effectiveness.
+\textbf{G1:} Cyclists can manually create bike routes or alternatively be assisted by the system to automatically track the paths thanks to the mobile device's sensors. Subsequently, the paths can be reviewed and enriched with general information and with a status before being saved inside the inventory. \\ [2mm]
+\textbf{G2:} Cyclists can visualize and manage their own inventory and search for their saved routes with their statistics, status and meteorological information provided by external services. \\ [2mm] 
+\textbf{G3:} Cyclists can publish their routes, sharing them with the community, creating a social component in the system where users can discover different paths proposed by others. \\ [2mm]
+\textbf{G4:} Given a starting point and a destination, the software suggests the best paths to the user visualizing them in a ranking based on scores and allowing the user to be guided by a navigation system along the selected path. 
 \subsection{Scope}
-The core function of BBP is to support cyclists in recording, managing, and sharing bike paths, and to help all users find safe and suitable routes between two locations. The final user of the software is a cyclist that interacts with BBP through a personal account (not mandatory) on a mobile application. They can create bike paths manually or let the system track them automatically using GPS and  sensors on their mobile device. After a trip, they can review the recorded path, confirm or correct detected problems, and enrich it with information on status and other details before saving it in their personal inventory. BBP stores each path together with statistics such as distance, time, average speed, and enriches these trips with meteorological data obtained from external weather services. Registered users can publish some of their paths, making them visible to the community. Cyclists view public paths, see their status and obstacles, and discover paths shared by the community. In this way, the system introduces a social component where cyclists can explore and rate different paths. Given a starting point and destination, BBP searches its inventory of recorded and published paths and suggests routes to the user. The system ranks the candidate routes using scores based on their status and the feedback of the users. BBP focuses on collecting, aggregating, and presenting information about bike paths among a community of users.
+The core function of BBP is to support cyclists in recording, managing, and sharing bike paths, and to help all users find safe and suitable routes between two locations. The final user of the software is a cyclist that interacts with BBP through a personal account (not mandatory) on a mobile application. They can create bike paths manually or let the system track them automatically using GPS and  sensors on their mobile device. After a trip, they can review the recorded path, confirm or correct detected problems, and enrich it with information on status and other details before saving the route in their personal inventory. BBP stores each route together with statistics such as distance, time, average speed, and enriches these trips with meteorological data obtained from external weather services. Registered users can publish some of their routes, making them visible to the community and contributing to the scores of the paths. Cyclists view public routes, see their status and obstacles, and discover paths shared by the community. In this way, the system introduces a social component where cyclists can explore different paths. Given a starting point and destination, BBP searches inside its archive of recorded and published paths and suggests paths to the user, providing also a navigation system to be followed along the ride. The system ranks the candidate paths using scores based on their status and their average time. BBP focuses on collecting, aggregating, and presenting information about bike paths among a community of users.
 \subsubsection{World Phenomena}
+\textbf{WP1:} Cyclists ride along different bike paths. \\
+\textbf{WP2:} Cyclists decide the starting point and the final destination of their bike paths. \\
+\textbf{WP3:} Cyclists check if the path can be ridden by bike. \\
+\textbf{WP4:} Meteorological conditions influence the bike trip. \\
+\textbf{WP5:} The status and obstacles of a path influence the bike trip. \\
+\textbf{WP6:} The status of paths changes over time. \\
+\textbf{WP7:} Cyclists carry mobile devices with their related sensors such as GPS, accelerometer, and gyroscope while cycling.  \\
+\textbf{WP8:} Cyclists decide whether to share or not the information regarding their routes. \\
+\textbf{WP9:} Cyclists evaluate the condition of the path.
 \subsubsection{Shared Phenomena}
+\textbf{World Controlled} \\
+%---------CREAZIONE PERCORSO MANUALE---------
+\textbf{SP1:} Cyclists manually insert the names of the streets that comprise the bike path. \\
+\textbf{SP2:} Cyclists specify general data and the status of the path. \\
+%---------CREAZIONE PERCORSO AUTOMATICO---------
+\textbf{SP3:} Cyclists check and eventually correct the automatically acquired information by BBP. \\
+%---------SALVATAGGIO E PUBBLICAZIONE---------
+\textbf{SP4:} Cyclists confirm routes data saving it into their inventory. \\   
+\textbf{SP5:} Cyclists publish their routes, allowing the community to see them. \\
+%---------VISUALIZZAZIONE PERCORSI---------
+\textbf{SP6:} Cyclists view their previous routes from the inventory. \\
+\textbf{SP7:} Cyclists view the routes published by other users \\
+%---------PIANIFICAZIONE PERCORSO---------
+\textbf{SP8:} Cyclists plan their routes selecting starting point and destination thanks to BBP. \\
+\textbf{SP9:} Cyclists use a navigation system offered by BBP, while they ride along existing paths. \\[8pt]
+\textbf{Machine Controlled} \\
+%---------CREAZIONE PERCORSO AUTOMATICO---------
+\textbf{SP10:} BBP acquires the entire route of the cyclist and its status, with GPS, accelerometer, and gyroscope. \\
+%---------VISUALIZZAZIONE PERCORSI---------
+\textbf{SP11:} BBP shows the statistics and the map of the selected path to the cyclists. \\
+%---------PIANIFICAZIONE PERCORSO---------
+\textbf{SP12:} BBP suggests to cyclists the best bike paths sorted by their score. 
 \subsection{Definitions, Acronyms, Abbreviations}
 \subsubsection{Definitions}
+\begin{itemize}
+    \item \textbf{Guest:} The term refers to the unregistered user. More details are provided later in the document.
+    \item \textbf{Cyclist:} The term refers to the registered user on the platform. More details are provided later in the document.
+    \item \textbf{Path:} A path is a set of streets rideable by the cyclist from a starting point to an end point. It is automatically created when a cyclist records a route for the first time on a path that does not exist. Once a path is created, it behaves as a route's family aggregating all similar routes under the same path.
+    \item \textbf{Route:} A route can be manually created by the cyclist or automatically recorded by the system. Each route is related to a specific path and contains additional details that describe the actual performance of the cyclist on that specific path.
+    \item \textbf{Path's Statistics:} Metrics that describe a path: average time, average distance, status and score.
+    \item \textbf{Route's Statistics:} Metrics that describe a route: date, duration, distance, average speed, weather conditions and status.
+    \item \textbf{Score:} A metric that measures the quality of a path. It is calculated by the system and is based on the status of the path and how effective the path is in terms of time. \\ 
+    \item \textbf{Status:} A metric that reflects the quality and condition of the road (e.g., optimal, medium, sufficient, requires maintenance, bad).
+    \item \textbf{Tolerance:} It is a parameter for the search that specifies how far the suggested routes can deviate from the selected points, allowing greater flexibility.
+\end{itemize}
 \subsubsection{Acronyms}
+\begin{itemize}
+    \item \textbf{BBP:} Best Bike Paths
+\end{itemize}
 \subsubsection{Abbreviations}
+\begin{itemize}
+    \item \textbf{G:} goal
+    \item \textbf{WP:} World Phenomenon
+    \item \textbf{SP:} Shared Phenomenon
+    \item \textbf{D:} Domain Assumption
+    \item \textbf{R:} Requirement
+\end{itemize}
 \subsection{Revision History}
 \subsection{Reference Documents}
+The assignment for this document and all the information included refer to the following documentation:
+\begin{itemize}
+    \item The specification for the 2025/26 Requirement Engineering and Design Project for the Software Engineering II course.
+    \item The slides on the WEBEEP page of the Software Engineering II course.
+\end{itemize}
 \subsection{Document Structure}
+\begin{enumerate}
+    \item \textbf{Introduction}: a brief description of the project that follows from the analysis of the specification provided, it highlights the goals of the product and its scope.
+    \item \textbf{Overall Description}: a more detailed description of the product that comprehends also real world scenarios and analyzes the system from a technical point of view.
+    \item \textbf{Specific Requirements}: a detailed list of all the requirements needed in order to satisfy the goals, and their relationship with domain assumptions.
+    \item \textbf{Formal analysis using Alloy}: a formal description of a portion of real world phenomena analyzed through Alloy in order to highlight inconsistencies between assumptions and phenomena previously modeled.
+    \item \textbf{Effort spent}: the time that each member of the group spent to contribute to the realization of this document.
+    \item \textbf{References}: references to documents or tools used for writing this document.
+\end{enumerate}
