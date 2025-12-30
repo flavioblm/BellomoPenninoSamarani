@@ -1,0 +1,27 @@
+\subsection{Overview}
+This section presents the overall system architecture by providing a high-level description of its components and the interaction between them.
+It outlines the architectural layers that compose the system and explains how they cooperate to deliver the required functionalities. Moreover, it discusses the key modeling and design choices adopted to satisfy the functional and non-functional requirements specified in the RASD document, with particular emphasis on scalability, modularity, performance, and reliability. 
+\subsubsection{System view}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{Images/High Level View.png}
+\caption{\label{fig:metamodel2}High level components diagram}
+\end{figure}
+The system’s architecture has been structured according to a four-tier model, a widely recognized design pattern that organizes the application into separate layers, each responsible for specific functions. This layered approach improves modularity, maintainability, scalability and fault tolerance, allowing each component to evolve independently without impacting the others.
+The four tiers composing the architecture are the following:
+\begin{itemize}
+    \item \textbf{Presentation Tier:} Defines the user interface through which clients interact with the platform.
+    \item \textbf{Web Server Tier:} Hosts the web server and manages incoming requests, routing them to the appropriate services.
+    \item \textbf{Application Tier:} Contains the core business logic and processes application data.
+    \item \textbf{Data Tier:} Handles data storage, management, and access through databases.
+\end{itemize}
+
+\subsubsection{Detailed view}
+descrizione specifica di ogni tier e poi alla fine mettiamo full architecture view
+\subsection{Component view}
+descrizione di tutti i microservizi e dei componenti
+\subsection{Deployment view}
+\subsection{Runtime view}
+\subsection{Component interfaces}
+\subsection{Selected Architectural Styles and Patterns}
+\subsection{Other design decisions}

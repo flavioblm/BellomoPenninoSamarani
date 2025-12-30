@@ -1,0 +1,14 @@
+% TODO: Remove on final doc
+\RequirePackage[textsize=scriptsize,color=blue!20]{todonotes}
+\newcounter{comment}
+\newcommand{\comment}[2][]{%
+% initials of the author (optional) + note in the margin
+\refstepcounter{comment}%
+{%
+\todo{\textbf{Comment [#1\thecomment]:}~#2}%
+}}
+% END TODO
+
+
+
+Here is the command to refer to another element (section, figure, table, ...) in the document: \emph{As discussed in Section~\ref{sect:overview} and as shown in Figure~\ref{fig:metamodel}, ...}. Here is how to introduce a bibliographic citation~\cite{DAM}. Bibliographic references should be included in a \texttt{.bib} file. 

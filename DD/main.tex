@@ -1,0 +1,87 @@
+\input{commandsFile}
+
+\begin{document}
+
+%TITLE PAGE
+
+\begin{titlepage}
+
+%LOGO + TITLE 
+{\begin{table}[t!]
+\centering
+\begin{tabular}{c}
+\\ [3cm]
+\includegraphics[scale=0.7]{Images/PolimiLogo} \\ [1cm]
+{\textbf{\huge{Design Document}}} \\ [1cm]
+{\LARGE \textbf{Best Bike Paths}}\\ \\
+{\Large Bellomo Flavio} \\
+{\Large Pennino Salvatore} \\
+{\Large Samarani Anna} \\
+\end{tabular}
+\end{table}}~\\ [7cm]
+
+\end{titlepage}
+
+%Define deliverable specific info
+%Replace cell contents where needed
+\begin{table}[h!]
+\begin{tabu} to \textwidth { X[0.3,r,p] X[0.7,l,p] }
+\hline
+\textbf{Deliverable:} & DD\\
+\textbf{Title:} & Design Document \\
+\textbf{Authors:} & Bellomo Flavio, Pennino Salvatore, Samarani Anna \\
+\textbf{Version:} & 1.0 \\ 
+\textbf{Date:} & 07-November-2025 \\
+\textbf{Download page:} & https://github.com/flavioblm/BellomoPenninoSamarani.git \\
+\textbf{Copyright:} & Copyright © 2025, Bellomo Flavio, Pennino Salvatore, Samarani Anna – All rights reserved \\
+\hline
+\end{tabu}
+\end{table}
+
+\setcounter{page}{2}
+
+
+%------------------------------------------------------------------------------------------------------------------------------------------------
+\newpage
+\addcontentsline{toc}{section}{Table of Contents}
+\tableofcontents
+\newpage
+\addcontentsline{toc}{section}{List of Figures}
+\listoffigures
+%------------------------------------------------------------------------------------------------------------------------------------------------
+\clearpage
+{\section{Introduction}}
+\label{sect:introduction}
+\input{Files/introduction}
+%------------------------------------------------------------------------------------------------------------------------------------------------
+\clearpage
+{\section{Architectural Design}}
+\label{sect:architectural}
+\input{Files/architectural}
+%------------------------------------------------------------------------------------------------------------------------------------------------
+\clearpage
+{\section{User Interface Design}}
+\label{sect:user interface}
+\input{Files/user interface}
+%------------------------------------------------------------------------------------------------------------------------------------------------
+\clearpage
+{\section{Requirements Traceability}}
+\label{sect:traceability}
+\input{Files/traceability}
+%------------------------------------------------------------------------------------------------------------------------------------------------
+\clearpage
+{\section{Implementation, Integration \& Test Plan}}
+\label{sect:implementation}
+\input{Files/implementation}
+%------------------------------------------------------------------------------------------------------------------------------------------------
+\clearpage
+{\section{Effort Spent}}
+\label{sect:effort}
+\input{Files/effort}
+%------------------------------------------------------------------------------------------------------------------------------------------------
+\clearpage
+{\section{References}}
+\label{sect:references}
+\input{Files/references}
+%------------------------------------------------------------------------------------------------------------------------------------------------
+\end{document}

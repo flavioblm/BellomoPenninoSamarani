@@ -1,0 +1,47 @@
+\subsection{Purpose}
+The purpose of Best Bike Paths (BBP) is to provide cyclists with a dedicated platform to discover, share and evaluate cycling routes, while allowing them to manage and track their own trips. The system aims to improve the safety, comfort, and overall experience of cycling by offering information on route conditions, obstacles, and environmental factors. Additionally, BBP create a community of cyclists who can exchange knowledge, follow high-quality routes and monitor personal progress over time.
+
+\subsection{Scope}
+The design of Best Bike Paths (BBP) focuses on defining the system’s structure, components, and interactions necessary to implement its functionalities. This document covers the design of the main modules that enable cyclists to record, manage and share bike routes.
+The system includes user management features, allowing registration, authentication, and profile modification for those who choose to create an account. It allows route creation through both manual creation and automatic tracking via GPS and mobile device sensors, storing relevant statistics such as distance, time, and average speed. Routes are enriched with additional information, including environmental and meteorological data collected from external services.
+BBP also incorporates a social component, enabling users to publish routes, explore public paths, and contribute to community ratings. Additionally, the system provides search and navigation functionality, suggesting paths based on quality scores, estimated travel time and overall status.
+The design covers the system’s four-tier architecture, detailing the presentation, web server, application logic and data layers, as well as the interactions between them that ensure modularity, scalability and distribution. 
+
+\subsection{Definitions, Acronyms}
+\subsubsection{Definitions}
+\begin{itemize}
+    \item \textbf{Guest:} The term refers to the unregistered user. More details are provided later in the document.
+    \item \textbf{Cyclist:} The term refers to the registered user on the platform. More details are provided later in the document.
+    \item \textbf{Path:} A path is a set of streets rideable by the cyclist from a starting point to an end point. It is automatically created when a cyclist records a route for the first time on a path that does not exist. Once a path is created, it behaves as a route's family aggregating all similar routes under the same path.
+    \item \textbf{Route:} A route can be manually created by the cyclist or automatically recorded by the system. Each route is related to a specific path and contains additional details that describe the actual performance of the cyclist on that specific path.
+    \item \textbf{Path's Statistics:} Metrics that describe a path: average time, average distance, status and score.
+    \item \textbf{Route's Statistics:} Metrics that describe a route: date, duration, distance, average speed, weather conditions and status.
+    \item \textbf{Score:} A metric that measures the quality of a path. It is calculated by the system and is based on the status of the path and how effective the path is in terms of time. 
+    \item \textbf{Status:} A metric that reflects the quality and condition of the road (e.g., optimal, medium, sufficient, requires maintenance, bad).
+    \item \textbf{Tolerance:} It is a parameter for the search that specifies how far the suggested routes can deviate from the selected points, allowing greater flexibility.
+\end{itemize}
+\subsubsection{Acronyms}
+\begin{itemize}
+    \item \textbf{BBP:} Best Bike Paths
+    \item \textbf{DD:} Design Document
+    \item \textbf{UI:} User Interface
+    \item \textbf{API:} Application Programming Interface
+    \item \textbf{DBMS:} Database Management System
+\end{itemize}
+\subsection{Revision History}
+\subsection{Reference Documents}
+The assignment for this document and all the information included refer to the following documentation:
+\begin{itemize}
+    \item The specification for the 2025/26 Requirement Engineering and Design Project for the Software Engineering II course.
+    \item The slides on the WEBEEP page of the Software Engineering II course.
+\end{itemize}
+\subsection{Document Structure}
+\begin{enumerate}
+    \item \textbf{Introduction}: it aims to give a brief description of the project. In particular it’s focused on the reasons and the goals that are going to be achieved with its development, as previously explained in the RASD;
+    \item \textbf{Architectural Design}: This part of the document describes at different levels of granularity how the architecture is designed;
+    \item \textbf{User Interface Design}: This section shows the wire frame that constitutes the platform UI;
+    \item \textbf{Requirements Traceability}: in this section it is explained how the goals defined in the previous document are satisfied by the interaction between the requirements and the component described in this document.
+    \item \textbf{Implementation, Integration and Test Plan}: this section provides a description of the implementation integration and testing details, useful for the developers and producer of the platform;
+    \item \textbf{Effort spent}: the time that each member of the group spent to contribute to the realization of this document.
+    \item \textbf{References}: references to documents or tools used for writing this document.
+\end{enumerate}
