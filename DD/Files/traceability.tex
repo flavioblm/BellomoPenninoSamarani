@@ -1,0 +1,86 @@
+\subsection{Functional Requirements}
+\textbf{Sign-up e Login}
+\begin{itemize}
+    \item \textbf{R1:} The platform allows the Cyclists to create an account.
+    \item \textbf{R2:} The platform allows Cyclists to authenticate.
+    \item \textbf{R3:} The platform allows the access as a Guest. 
+    \item \textbf{R4:} The platform allows Cyclists to view their personal account.
+    \item \textbf{R5:} The platform allows Cyclists to modify their personal account.
+\end{itemize}
+\textbf{Route Creation and Publication}
+\begin{itemize}
+    \item \textbf{R6:} The platform allows the Cyclists to create a new route through a manual creation process.
+    \item \textbf{R7:} The platform allows the Cyclists to create a new route through an automatic creation process.
+    \item \textbf{R8:} The platform allows the Cyclists to confirm and complete the automatically acquired information.
+    \item \textbf{R9:} The platform collects data from the device sensors.
+    \item \textbf{R10:} The platform collects weather data and enriches the path's statistics.
+    \item \textbf{R11:} The platform allows the Cyclists to evaluate the status of a route. 
+    \item \textbf{R12:} The platform allows the Cyclists to publish/unpublish a route.
+    \item \textbf{R13:} The platform allows the Cyclists to delete a route.
+\end{itemize}
+\textbf{Route Visualization}
+\begin{itemize}
+    \item \textbf{R14:} The platform allows the Cyclists to visualize a list of paths in the personal inventory with the possibility to filter them.
+    \item \textbf{R15:} The platform allows the User to view the details of a path such as the map, the statistics and the status.
+    \item \textbf{R16:} The platform allows the User to visualize the details of the routes related to a path.
+\end{itemize}
+\textbf{Route Search and Navigation}
+\begin{itemize}
+    \item \textbf{R17:} The platform allows the User to search a path by setting the start and the end points with a kilometer tolerance.
+    \item \textbf{R18:} The platform suggests to the User a list of available routes ranked by score.
+    \item \textbf{R19:} The platform supports path navigation by allowing users to follow routes that have been previously created.
+\end{itemize}
+\textbf{Scoring, Merging and Ranking}
+\begin{itemize}
+    \item \textbf{R20:} The platform merges the status when more than one is present.
+    \item \textbf{R21:} The platform computes a score for each path based on path's status and average speed.
+\end{itemize}
+\newpage
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{1pt}        % riduce lo spazio orizzontale tra colonne
+\renewcommand{\arraystretch}{1.4} % riduce lo spazio verticale tra righe
+\begin{tabular}{|>{\centering\arraybackslash}m{1cm}|*{13}{>{\centering\arraybackslash}p{1cm}|}}
+
+\hline
+   & \rotatebox{90}{Authentication service}
+   & \rotatebox{90}{Account service}
+   & \rotatebox{90}{Inventory service}
+   & \rotatebox{90}{ManagePath service}
+   & \rotatebox{90}{ManageRoute service}
+   & \rotatebox{90}{Navigation system}
+   & \rotatebox{90}{Recommendation system}
+   & \rotatebox{90}{ManageSensorsData service }
+   & \rotatebox{90}{Weather conditions}
+   & \rotatebox{90}{API Gateway}
+   & \rotatebox{90}{DBMSs}
+   & \rotatebox{90}{User Mobile App} \\ 
+\hline
+R1  & X & & & & & & & & & X & X & X \\ \hline
+R2  & X & & & & & & & & & X & X & X \\ \hline
+R3  & X & & & & & & & & & X & X & X \\ \hline
+R4  & & X & & & & & & & & X & X & X \\ \hline
+R5  & & X & & & & & & & & X & X & X \\ \hline
+R6  & & & & X & X & & & & & X & X & X \\ \hline
+R7  & & & & & X & & & X & & X & & X \\ \hline
+R8  & & & & X & X & & & & & X & X & X \\ \hline
+R9  & & & & & & & & X & & X & X & \\ \hline
+R10 & & & & & & & & & X & X & X & \\ \hline
+R11 & & & & & X & & & & & X & X & X \\ \hline
+R12 & & & & X & X & & X & & & X & X & X \\ \hline
+R13 & & & & X & X & & X & & & X & X & X \\ \hline
+R14 & & & X & & & & & & & X & X & X \\ \hline
+R15 & & & & X & X & & & & & X & X & X \\ \hline
+R16 & & & & X & X & & & & & X & X & X \\ \hline
+R17 & & & & & & & X & & & X & X & X \\ \hline
+R18 & & & & & & & X & & & X & X & X \\ \hline
+R19 & & & & & & X & & X & & X & X & X \\ \hline
+R20 & & & & & & & X & & & X & X & \\ \hline
+R21 & & & & & & & X & & & X & X & \\ \hline
+\end{tabular}
+\caption{Requirements Traceability Matrix}
+\label{tab:rtm}
+\end{table}
+
