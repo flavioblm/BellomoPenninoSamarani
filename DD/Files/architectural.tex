@@ -36,7 +36,7 @@ The platform consists of several components grouped into two main categories: ba
     \item \textit{ManageSensorsData service}
     \\This service collects data from the mobile sensors (GPS,accelerometer,gyroscope) during the ride of the cyclist. It enriches the route with these information.
     \item \textit{API Gateway}
-\\ This is the entry point for each app request. It forwards each request to the right microservices.    
+    \\ This is the entry point for each app request. It forwards each request to the right microservices.    
     \item \textit{DBMSs}
     \\Each microservice owns its own database to store its data, keeping the services independent.
 \end{itemize}
@@ -45,10 +45,27 @@ The platform consists of several components grouped into two main categories: ba
     \item \textit{User Interface}
     \\ It is the app interface for users. It allows accessing all the features of BPP for the Cyclist and a smaller portion of them for the Guest. 
 \end{itemize}
+\textbf{External components}
+\begin{itemize}
+    \item \textit{WeatherCondition API}
+    \\This external service provides weather data and is called by the \textit{ManageRoute service} and to enrich the details of a route with this piece of data.
+\end{itemize}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{Images/Component Diagram.png}
 \caption{\label{fig:metamodel2}Component diagram}
+\end{figure}
+Additionally, it is useful to provide a more in-depth description of a generic microservice component. It is based on the \textbf{Controller-Service-Repository pattern}, which adds modularity and promotes separation of concerns within the component. This three sub-components operate as follow:
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+    \item The \textit{Controller} is responsible for exposing the component functionalities and it is based on the RESTful architectural style.
+    \item The \textit{Service} acts as intermediary between the two other components of the microservice and contains all the business logic.  
+    \item The \textit{Repository} is responsible for querying the DBMS to retrieve and persist data.
+\end{itemize}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{Images/microservice component diagram.png}
+\caption{\label{fig:metamodel2}Generic microservice component diagram}
 \end{figure}
 \subsection{Deployment view}
 Caching System \\
@@ -56,4 +73,23 @@ This component stores frequently used data in memory  making common requests fas
 \subsection{Runtime view}
 \subsection{Component interfaces}
 \subsection{Selected Architectural Styles and Patterns}
+\textbf{Client-4-tier architecture} 
+\\
+\textbf{Microservice architecture}
+\\
+\textbf{RESTful architectural style}
+\\
+\textbf{Security pattern}
+api gateway\\
+\textbf{Resiliency pattern}
+circuit breaker\\
+\textbf{Communication pattern}
+interazioni con l'utente -> sincrone \\
+salvataggio dati e GPS / operazioni più lunghe -> asincrono\\
+\textbf{Routing pattern}
+\\
 \subsection{Other design decisions}
+perche controller-service-repository invece di model-view-controller \\
+sicurezza: utilizzo firewall e 4 tier \\
+server proxy\\
+distribuzione del carico con load balancer\\
