@@ -1,6 +1,17 @@
 \subsection{Overview}
-\subsection{Implementation plan}
-\subsubsection{Features identification}
+This section of the document describes the system implementation, the integration of its components and the strategies adopted for testing. The testing procedures adopted for the system aim to identify the majority of the application defect before each release, but it is very important to acknowledge that the complete absence of bugs cannot be guaranteed with the test. 
+\subsection{Implementation plan} 
+The implementation plan follows a modular approach, dividing the application into independent and loosely coupled components, in particular \textit{frontend} and \textit{backend components}.\\[5pt]
+For each functionality, the implementation process starts from the microservices components as they define the core business logic, manage data and expose the APIs used by the frontend. Developing the backend first reduces integration problems, stabilizes service interfaces and allows early validation of architectural decisions.\\[5pt]
+Subsequently, the related frontend is developed and its component is responsible for user interaction and interacts with the backend through RESTful APIs using a request/response communication model. \\[5pt]
+This approach is repeated for each functionality and ensures a separation between presentation and business logic. \\[5pt]
+The last phase of the implementation consists of the integration of external services, which interact with the application through interfaces. This step is performed after the core components are stable in order to limit integration risks and simplify debugging.\\[5pt]
+The modular structure of the implementation allows the individual components to be tested in isolation before the integration with the complete system.
 \subsection{Component integration and testing}
+The BBP platform components are integrated and tested using a hybrid approach combining bottom-up and thread strategies. \\[5pt]
+The bottom-up strategy is applied to core backend components to decide integration order. Starting from the loosely coupled microservices, additional components are progressively integrated until the entire software is completed.\\[5pt]
+Individual backend components, such as microservices, are tested in isolation with unit test to ensure that their business logic, data models, and service interfaces work correctly. After that, components are progressively integrated, performing integration tests at each step to verify correct interaction and to maintain system stability.\\[5pt]
+In parallel, thread strategy is applied by defining functional flows that span all architectural tiers. Each thread is tested end-to-end, ensuring that interactions between components at different layers operate correctly.\\[5pt]
+This combined approach improves testing coverage, supports incremental delivery of functionalities and reduces the risk of errors propagation and allows their early identification.\\
 \subsection{System testing}
 \subsection{Additional specifications on testing}
