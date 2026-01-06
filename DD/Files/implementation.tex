@@ -14,4 +14,23 @@ Individual backend components, such as microservices, are tested in isolation wi
 In parallel, thread strategy is applied by defining functional flows that span all architectural tiers. Each thread is tested end-to-end, ensuring that interactions between components at different layers operate correctly.\\[5pt]
 This combined approach improves testing coverage, supports incremental delivery of functionalities and reduces the risk of errors propagation and allows their early identification.\\
 \subsection{System testing}
+System testing is a crucial phase of the development in which the fully integrated system is evaluated to verify compliance with both functional and non-functional requirements. This phase is conducted in a testing environment that closely resembles the production environment, in order to assess the system’s behavior under realistic operating conditions and reduce the risk of failures after deployment.
+The system testing is composed by:
+\begin{itemize}
+    \item \textbf{Functional Testing} \\
+    The main purpose of functional testing is check whether the software meets the functional requirements. This activity is carried out by using the system according to the use cases described in the RASD document and verifying that the corresponding requirements are correctly fulfilled.
+    \item \textbf{Performance Testing} \\
+    This type of test focuses on detecting issues that affect the overall performance of the system. Its purpose is to identify bottlenecks impacting response time, resource utilization and throughput, as well as to detect inefficient algorithms and possible hardware or network-related problems. Moreover, performance testing supports the identification of potential optimization opportunities. \\
+    This testing activity is performed by loading the system with the expected workload and by measuring performance metrics, which are then compared against acceptable performance levels.
+    \item \textbf{Load Testing}\\
+    Load testing is performed to expose defects such as memory leaks, improper memory management, and buffer overflows, and to identify the upper operational limits of system components. Additionally, it can be used to compare alternative architectural solutions. Load testing is conducted by executing the system under progressively increasing workloads until the maximum supported capacity is reached, or by subjecting the system to a sustained load over a long period of time.
+    \item \textbf{Stress Testing}\\
+    The aim of stress testing is to ensure that the system is able to recover gracefully after failures. This type of testing attempts to break the system by overwhelming its resources or by deliberately reducing the available resources. Typical stress testing scenarios include doubling the baseline number of concurrent users or HTTP connections, as well as randomly shutting down and restarting network ports on switches or routers connecting the servers. 
+\end{itemize}
 \subsection{Additional specifications on testing}
+The last part of the testing phase are the \textit{User Acceptance Tests} which are composed by alpha and beta testing to ensure the platform meets user requirements before its official release.
+\begin{itemize}
+\item \textbf{Alpha Testing} is conducted internally by the development team in a controlled environment. Its main goal is to identify and fix bugs, functional issues, and usability problems at an early stage. This type of test involves a small number of testers, internal team members and some stakeholders, which allows developers to address critical issues immediately.
+\item \textbf{Beta Testing} is performed by external users under real-world conditions using a pre-release version of the platform. This phase aims to collect feedback on remaining defects, usability, and overall user experience. During this phase, a larger set of users participate, providing more points of view on the platform which help improving the system before deployment.
+\end{itemize}
+The feedback collected from both alpha and beta testing is essential for improving the platform and verifying once more that it meets functional and non-functional requirements.
