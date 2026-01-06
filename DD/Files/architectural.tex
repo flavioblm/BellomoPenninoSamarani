@@ -58,7 +58,7 @@ The platform consists of several components grouped into two main categories: ba
 \includegraphics[width=\textwidth]{Images/Component Diagram.png}
 \caption{\label{fig:metamodel2}Component diagram}
 \end{figure}
-Additionally, it is useful to provide a more in-depth description of a generic microservice component. It is based on the \textbf{Controller-Service-Repository pattern}, which adds modularity and promotes separation of concerns within the component. The sub-components of a microservice operate as follow::
+Additionally, it is useful to provide a more in-depth description of a generic microservice component. It is based on the \textbf{Controller-Service-Repository pattern}, which adds modularity and promotes separation of concerns within the component. The sub-components of a microservice operate as follow:
 \begin{itemize}
 \setlength{\itemsep}{0pt}
     \item The \textit{Controller} is responsible for exposing the component functionalities and it is based on the RESTful architectural style.
@@ -73,26 +73,69 @@ Additionally, it is useful to provide a more in-depth description of a generic m
 \caption{\label{fig:metamodel2}Generic microservice component diagram}
 \end{figure}
 \subsection{Deployment view}
-Caching System \\
-This component stores frequently used data in memory  making common requests faster . This also reduces load on the various services .
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{Images/DeploymentViewDiagram.png}
+\caption{Deployment View Diagram}
+\label{fig:DeploymentView}
+\end{figure}
+
+This is the full deployment view of the system.
+
+\noindent The client side is a \textbf{Mobile Device}. Inside the device there is a mobile operating system (Android or iOS). The \textbf{BPP App} is installed on the OS and communicates with the backend to obtain the required application data. In addition, the BPP App reads sensor data (GPS, accelerometer, gyroscope) through local operating system APIs. The device sends external requests using the \textbf{HTTPS} protocol.
+
+\noindent All requests from the mobile device first reach the \textbf{API Firewall}. The purpose of this firewall is to filter incoming traffic and block malicious or unauthorized requests. After the firewall, traffic enters the internal network and, from this point, it is forwarded using \textbf{HTTP}.
+
+\noindent The backend is deployed on three replicated \textbf{Application Servers} to ensure high availability and fault tolerance. Each application server is associated with an \textbf{API Gateway} and a \textbf{Circuit Breaker}. If the circuit breaker detects that a server is overloaded or not responding correctly, it temporarily stops routing traffic to that server until it recovers. A \textbf{Load Balancer} distributes incoming requests across the three replicated servers.
+
+\noindent Each application server hosts the business logic of the system. Every microservice is deployed in its own container to keep services isolated, with independent dependencies and configuration. This improves portability, simplifies deployments, and enables better resource control.
+
+\noindent All application servers communicate with the database layer to store and retrieve data. The database is replicated on three servers, so data remains available even if one DB server has issues, and duplication increases reliability. The three database servers are synchronized through software replication mechanisms to keep data consistent across replicas. The \textbf{Database Firewall} protects the database layer by filtering and controlling incoming connections from the application servers, reducing the risk of attacks and data leaks.
+
+\noindent The database layer is also organized using containers. Each container groups the schemas required by a specific microservice, so every service has a dedicated database structure and data remains isolated from the others.
 \subsection{Runtime view}
 \subsection{Component interfaces}
 \subsection{Selected Architectural Styles and Patterns}
-\textbf{Client-4-tier architecture} 
+\textbf{Four-tier client-server architecture}\\ 
+
+The system is  designed using a four-tier client-server architecture, meaning that the solution is divided into four logical layers, each one with a specific responsibility.
+This gives the system a clear structure , every tier focuses on one type of task  and the separation makes the architecture easy to understand,mantain and evolve over time.
+Each tier can be scaled or updated independently without impacting the others ones.
+
+\\ \\The first tier is the \textbf{presentation tier}. It containts a single client , the BPP APP installed on a mobile device.  This tier is responsible for the user interaction with the User Interface and for collecting device level data such as sensor data. The client doesn't contain additional business logic or data storage, it only sends  and  requests to the backend  and wait for the response.
+
+
+\\ \\ The second tier is the \textbf{xx tier}. This tier includes all the components that control how requests enter the system and how they are routed inside the architecture. This tier is implemented with elements like the API Firewall, Load Balancer, Api gateway and the Proxy. The Load Balancer distributes requests across multiple application server so the system can handle high traffic and continue working even if one server becomes unavailable. The Api Gateway is a controlled entry point to the backend services, it routes each request to the correct microservice. It is also a proxy server used to support routing and to implement a caching mechanism. This tier improves both security and scalability centralizing the management of incoming traffic. 
 \\
-\textbf{Microservice architecture}
+\\ The thierd tier is the Application Server tier . In this tier the business logic of the application is exectud. The application tier is replicated across multiple Application Servers to guaranteee high availability and fault tolerance. Each server hosts the same set of microservices and every microservice is deployed in its own containter. In this way each microservice can be updated,restarted and scaled independently.This tier usually communicates internally using HTTP protocol and satisfy all the requests from the API Gateway.
 \\
-\textbf{RESTful architectural style}
 \\
-\textbf{Security pattern}
+The fourth tier is the\textbf{ Data tier}, wich containts the persistent storage of the system. This Tier is seperated from the application tier to pretect the data and to keep the storage concerns independent from the business logic.The databases are deployed with replication across multiple servers, so data remains available even if one database has problems. In addition there is a software mechanism that synchronize the servers to keep the informations consistent.  
+
+In conclusion , the four-tier architecture was chosen becaus it enforces separation of concerns and produces a modular system in wich each layer has a well-defined role. This structure helps the systems to be more scalable because the different tiers can be replicated  and scaled horizontally if the app dimension grow up. In addition the architecture  make the system more secure,more reliable and easier to build.
+\\
+
+
+\textbf{Microservice architecture}\\
+The decision to implement a microservices architecture stems from various factors related to both the product and the development process. \\[5pt]
+From a product perspective, microservices enable fine-grained scaling through flexible deployment and selective replication of individual services, which is not possible in monolithic systems. This architectural choice also improves resilience by limiting the impact of localized failures, allowing the system to continue operating even in the presence of partial service outages.
+Additionally individual services can be reused across different contexts and combined to support multiple workflows.\\[5pt]
+From a process perspective, this architecture reduces team synchronization overhead by enabling small, autonomous teams with well defined responsibilities. 
+\\[5pt]
+\textbf{RESTful architectural style}\\
+\\
+\textbf{Security pattern}\\
 api gateway\\
-\textbf{Resiliency pattern}
+\textbf{Resiliency pattern}\\
 circuit breaker\\
-\textbf{Communication pattern}
+\textbf{Communication pattern}\\
+In the system both synchronous and asynchronous communication are used. The communication pattern is choose depending on the nature and the expecting duration of the interaction.
+
+
 interazioni con l'utente -> sincrone \\
 salvataggio dati e GPS / operazioni più lunghe -> asincrono\\
-\textbf{Routing pattern}
-\\
+\textbf{Routing pattern}\\
+\textbf{Database-per-service pattern}\\
 \subsection{Other design decisions}
 perche controller-service-repository invece di model-view-controller \\
 sicurezza: utilizzo firewall e 4 tier \\
