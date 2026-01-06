@@ -5,14 +5,87 @@ The implementation plan follows a modular approach, dividing the application int
 For each functionality, the implementation process starts from the microservices components as they define the core business logic, manage data and expose the APIs used by the frontend. Developing the backend first reduces integration problems, stabilizes service interfaces and allows early validation of architectural decisions.\\[5pt]
 Subsequently, the related frontend is developed and its component is responsible for user interaction and interacts with the backend through RESTful APIs using a request/response communication model. \\[5pt]
 This approach is repeated for each functionality and ensures a separation between presentation and business logic. \\[5pt]
-The last phase of the implementation consists of the integration of external services, which interact with the application through interfaces. This step is performed after the core components are stable in order to limit integration risks and simplify debugging.\\[5pt]
+Moreover, the DBMS, the sensor data from the mobile device and the external service WeatherCondition API are mocked during testing, because it is assumed that they work correctly, providing requested information.\\[5pt]
 The modular structure of the implementation allows the individual components to be tested in isolation before the integration with the complete system.
 \subsection{Component integration and testing}
-The BBP platform components are integrated and tested using a hybrid approach combining bottom-up and thread strategies. \\[5pt]
-The bottom-up strategy is applied to core backend components to decide integration order. Starting from the loosely coupled microservices, additional components are progressively integrated until the entire software is completed.\\[5pt]
-Individual backend components, such as microservices, are tested in isolation with unit test to ensure that their business logic, data models, and service interfaces work correctly. After that, components are progressively integrated, performing integration tests at each step to verify correct interaction and to maintain system stability.\\[5pt]
-In parallel, thread strategy is applied by defining functional flows that span all architectural tiers. Each thread is tested end-to-end, ensuring that interactions between components at different layers operate correctly.\\[5pt]
-This combined approach improves testing coverage, supports incremental delivery of functionalities and reduces the risk of errors propagation and allows their early identification.\\
+The BBP platform components are integrated and tested using a bottom-up strategy. \\[5pt]
+The bottom-up strategy is applied to all components to decide integration order. Starting from the loosely coupled microservices, additional components are progressively integrated until the entire software is completed.\\[5pt]
+Individual backend components, such as microservices, are tested in isolation with unit test to ensure that their inner sub-components work correctly. After that, components are progressively integrated, performing integration tests at each step to verify correct interaction and to maintain system stability.\\[5pt]
+Finally, small sections of the UI are integrated progressively and each functionality is tested end-to-end, ensuring that interactions between components at different layers operate correctly.\\[5pt]
+This approach improves testing coverage, supports incremental delivery of functionalities and reduces the risk of errors propagation and allows their early identification.
+\begin{enumerate}
+    \item \textbf{Authentication integration}\\
+    The first functionality that has to be tested is the authentication, in particular the features that are related to the login, sign-up and the access as a guest. 
+    This component is tested first because it largely independent from other components, making it easier to integrate and verify before testing other services.\\
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.15\textwidth]{Images/PackageDiagrams/1_Authentication.png}
+    \caption{\label{fig:metamodel2}Authentication integration}
+    \end{figure}
+    \item \textbf{Account management integration}\\
+    The Account management includes features such as editing account, deleting account and logout. The component integrated in this step is the \textit{Account microservice}.\\
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\textwidth]{Images/PackageDiagrams/2_Account Management.png}
+    \caption{\label{fig:metamodel2}Account management integration}
+    \end{figure}
+    \item \textbf{Sensors Data Management integration}\\
+    This functionality needs to be included and tested in this preliminary step because it will be used inside two other microservices in the next steps. It concerns the retrieving data from the mobile device's sensors and the component integrated is the \textit{ManageSensorData microservice}.\\
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Images/PackageDiagrams/3_Sensors Data Management.png}
+    \caption{\label{fig:metamodel2}Sensors Data Management integration}
+    \end{figure}
+    \item \textbf{Route and Path Management integration}\\
+    This two macro-areas of the software are included and tested together because they are strictly related. The features integrated are the route creation, visualization, deletion and publication while considering the path it is possible to create, delete and publish a path as automatic operation of the system and the visualization of a path for the user. The components integrated are \textit{ManagePath microservice} and \textit{ManageRoute microservice} that is linked to the \textit{ManageSensorsData microservice}. Moreover, in \textit{ManagePath microservice} an external library is used for the map implementation. \\
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Images/PackageDiagrams/4_Route and Path Management.png}
+    \caption{\label{fig:metamodel2}Route and Path Management integration}
+    \end{figure}
+    \item \textbf{Inventory Management integration}\\
+    This functionality provides the access to the inventory in order to visualize, order and filter own routes. The component integrated is the \textit{Inventory microservice}.\\
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Images/PackageDiagrams/5_Inventory Management.png}
+    \caption{\label{fig:metamodel2}Inventory Management integration}
+    \end{figure}
+    \item \textbf{Recommendation System integration}\\
+    This functionality of the software provides multiple features such as searching for a path giving start and end points and all that concerns the computation of status and score of a path. The component integrated is the \textit{RecommendationSystem microservice}.\\
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Images/PackageDiagrams/6_Recommendation System.png}
+    \caption{\label{fig:metamodel2}Recommendation System integration}
+    \end{figure}
+    \item \textbf{Navigation System integration}\\
+    The Navigation System provides all the features needed to follow a path through a map, implemented with an external library. The component integrated is the \textit{NavigationSystem microservice}.\\
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Images/PackageDiagrams/7_Navigation System.png}
+    \caption{\label{fig:metamodel2}Navigation System integration}
+    \end{figure}
+    \item \textbf{API Gateway integration}\\
+    At this point the \textit{API Gateway} component is integrated, replacing all the links to the drivers. Indeed, through the \textit{API Gateway} is possible to test all the components directly through the endpoints, also testing the interaction between this two architectural backend tiers.\\
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Images/PackageDiagrams/8_API Gateway integration.png}
+    \caption{\label{fig:metamodel2}API Gateway integration}
+    \end{figure}
+    \item \textbf{User Mobile App integration}\\
+    Finally, the last driver is replaced by the \textit{User Mobile App} that represents the UI of the software. This integration enables end-to-end testing of interactions across all tiers of the architecture.\\
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Images/PackageDiagrams/9_User Mobile App Integration.png}
+    \caption{\label{fig:metamodel2}User Mobile App integration}
+    \end{figure}
+\end{enumerate}
+\textbf{Microservice Testing}\\
+As stated before, each microservice is tested in isolation with unit tests to ensure that their inner sub-components work correctly. Below a representation of the tested sub-components with their relationships.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{Images/PackageDiagrams/package microservice.png}
+\caption{\label{fig:metamodel2}Generic microservice package}
+\end{figure}
 \subsection{System testing}
 System testing is a crucial phase of the development in which the fully integrated system is evaluated to verify compliance with both functional and non-functional requirements. This phase is conducted in a testing environment that closely resembles the production environment, in order to assess the system’s behavior under realistic operating conditions and reduce the risk of failures after deployment.
 The system testing is composed by:
