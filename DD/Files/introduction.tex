@@ -1,11 +1,10 @@
 \subsection{Purpose}
 The purpose of Best Bike Paths (BBP) is to provide cyclists with a dedicated platform to discover, share and evaluate cycling routes, while allowing them to manage and track their own trips. The system aims to improve the safety, comfort, and overall experience of cycling by offering information on route conditions, obstacles, and environmental factors. Additionally, BBP create a community of cyclists who can exchange knowledge, follow high-quality routes and monitor personal progress over time.
-
 \subsection{Scope}
 The design of Best Bike Paths (BBP) focuses on defining the system’s structure, components, and interactions necessary to implement its functionalities. This document covers the design of the main modules that enable cyclists to record, manage and share bike routes.
-The system includes user management features, allowing registration, authentication, and profile modification for those who choose to create an account. It allows route creation through both manual creation and automatic tracking via GPS and mobile device sensors, storing relevant statistics such as distance, time, and average speed. Routes are enriched with additional information, including environmental and meteorological data collected from external services.
-BBP also incorporates a social component, enabling users to publish routes, explore public paths, and contribute to community ratings. Additionally, the system provides search and navigation functionality, suggesting paths based on quality scores, estimated travel time and overall status.
-The design covers the system’s four-tier architecture, detailing the presentation, web server, application logic and data layers, as well as the interactions between them that ensure modularity, scalability and distribution. 
+The system includes user management features, allowing registration, authentication, and profile modification for those who choose to create an account. It allows route creation through both manual creation and automatic tracking via GPS and mobile device sensors, storing relevant statistics such as distance, time, and average speed. Routes are enriched with additional information, including environmental and meteorological data collected from external services.\\
+BBP also incorporates a social component, enabling users to publish routes, explore public paths, and contribute to community ratings. Additionally, the system provides search and navigation functionality, suggesting paths based on quality scores, estimated travel time and overall status.\\
+The design covers the system’s four-tier architecture, detailing the presentation, routing tier, application logic and data layers, as well as the interactions between them that ensure modularity, scalability and distribution. 
 \subsection{Definitions, Acronyms, Abbreviations}
 \subsubsection{Definitions}
 \begin{itemize}
@@ -18,6 +17,7 @@ The design covers the system’s four-tier architecture, detailing the presentat
     \item \textbf{Score:} A metric that measures the quality of a path. It is calculated by the system and is based on the status of the path and how effective the path is in terms of time. 
     \item \textbf{Status:} A metric that reflects the quality and condition of the road (e.g., optimal, medium, sufficient, requires maintenance, bad).
     \item \textbf{Tolerance:} It is a parameter for the search that specifies how far the suggested routes can deviate from the selected points, allowing greater flexibility.
+    \item \textbf{Tier:} It is a layer inside the architecture of the system.
 \end{itemize}
 \subsubsection{Acronyms}
 \begin{itemize}
@@ -44,11 +44,11 @@ The assignment for this document and all the information included refer to the f
 \end{itemize}
 \subsection{Document Structure}
 \begin{enumerate}
-    \item \textbf{Introduction}: it aims to give a brief description of the project. In particular it’s focused on the reasons and the goals that are going to be achieved with its development, as previously explained in the RASD;
-    \item \textbf{Architectural Design}: This part of the document describes at different levels of granularity how the architecture is designed;
-    \item \textbf{User Interface Design}: This section shows the wire frame that constitutes the platform UI;
-    \item \textbf{Requirements Traceability}: in this section it is explained how the goals defined in the previous document are satisfied by the interaction between the requirements and the component described in this document.
-    \item \textbf{Implementation, Integration and Test Plan}: this section provides a description of the implementation integration and testing details, useful for the developers and producer of the platform;
-    \item \textbf{Effort spent}: the time that each member of the group spent to contribute to the realization of this document.
-    \item \textbf{References}: references to documents or tools used for writing this document.
+    \item \textbf{Introduction}: provides a concise overview of the project, outlining the motivations behind its development and the goals to be achieved, as already introduced in the RASD;
+    \item \textbf{Architectural Design}: describes the system architecture at different levels of abstraction, highlighting its structure and the relationships among its components;
+    \item \textbf{User Interface Design}: shows the structure and layout of the platform’s user interface;
+    \item \textbf{Requirements Traceability}: explains how the goals identified in the RASD are fulfilled through the mapping between requirements and the components described in this document;
+    \item \textbf{Implementation, Integration and Test Plan}: details the strategies and activities related to implementation, integration, and testing, providing guidance for developers during the development process;
+    \item \textbf{Effort Spent}: reports the amount of time each group member dedicated to the preparation of this document;
+    \item \textbf{References}: lists the documents, standards, and tools consulted for the drafting of this document. 
 \end{enumerate}
