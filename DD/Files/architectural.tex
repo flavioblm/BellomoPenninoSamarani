@@ -4,7 +4,7 @@ The system’s architecture has been structured according to a four-tier model, 
 The four tiers composing the architecture are the following:
 \begin{itemize}
     \item \textbf{Presentation Tier:} Defines the user interface through which clients interact with the platform.
-    \item \textbf{Web Server Tier:} Hosts the web server and manages incoming requests, routing them to the appropriate services.
+    \item \textbf{Routing Tier:} Contains all the components used to manage incoming requests, routing them to the appropriate services.
     \item \textbf{Application Tier:} Contains the core business logic and processes application data. Application Tier is designed according to a microservices-based architectural approach.
     \item \textbf{Data Tier:} Handles data storage, management, and access through databases.
 \end{itemize}
@@ -86,58 +86,101 @@ This is the full deployment view of the system.
 
 \noindent All requests from the mobile device first reach the \textbf{API Firewall}. The purpose of this firewall is to filter incoming traffic and block malicious or unauthorized requests. After the firewall, traffic enters the internal network and, from this point, it is forwarded using \textbf{HTTP}.
 
-\noindent The backend is deployed on three replicated \textbf{Application Servers} to ensure high availability and fault tolerance. Each application server is associated with an \textbf{API Gateway} and a \textbf{Circuit Breaker}. If the circuit breaker detects that a server is overloaded or not responding correctly, it temporarily stops routing traffic to that server until it recovers. A \textbf{Load Balancer} distributes incoming requests across the three replicated servers.
+\noindent The backend is deployed on three replicated \textbf{Application Servers} to ensure high availability and fault tolerance. Each application server is associated with an \textbf{API Gateway}. A \textbf{Load Balancer} distributes incoming requests across the three replicated servers.
 
 \noindent Each application server hosts the business logic of the system. Every microservice is deployed in its own container to keep services isolated, with independent dependencies and configuration. This improves portability, simplifies deployments, and enables better resource control.
 
-\noindent All application servers communicate with the database layer to store and retrieve data. The database is replicated on three servers, so data remains available even if one DB server has issues, and duplication increases reliability. The three database servers are synchronized through software replication mechanisms to keep data consistent across replicas. The \textbf{Database Firewall} protects the database layer by filtering and controlling incoming connections from the application servers, reducing the risk of attacks and data leaks.
+\noindent All application servers communicate with the database layer to store and retrieve data using the \textbf{TCP} protocol. The database is replicated on three servers, so data remains available even if one DB server has issues, and duplication increases reliability. The three database servers are synchronized through software replication mechanisms to keep data consistent across replicas. The \textbf{Database Firewall} protects the database layer by filtering and controlling incoming connections from the application servers, reducing the risk of attacks and data leaks.
 
 \noindent The database layer is also organized using containers. Each container groups the schemas required by a specific microservice, so every service has a dedicated database structure and data remains isolated from the others.
 \subsection{Runtime view}
+\begin{itemize}
+\item \textbf{SD1 - Create Account} \\
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{Images/SD/SD1_CreateAccount.png}
+\caption{\label{fig:metamodel2}Sequence Diagram related to UC1 - Create Account}
+\end{figure}
+This sequence diagram illustrates the flow of messages for the Account Creation. The Cyclist presses the Sign Up Button and the BBP App shows the Sign Up screen. This screen contains a form that allows the Cyclists to enter their personal information in particular: name, email and password. After the compilation of the form the Cyclist press again the Sign Up button again. At this point the application checks if the email provided by the cyclist already exists in the DBMS. In order to perform this check, the BBP App sends the entered email to the API Gateway, which forwards the request to the appropriate microservice, namely the Authentication Microservice. This microservice queries its DBMS and generates a response, which is propagated back through the involved components to the user.
+If the email verification is successful, the BBP App displays the homepage to the cyclist; otherwise, an error message is shown.
+\newpage
+\item \textbf{SD2 - Login}
+\item \textbf{SD3 - Guest access}
+\item \textbf{SD4 - Logout}
+\item \textbf{SD5 - Manage Account}
+\item \textbf{SD6 - Delete Account}
+\item \textbf{SD7 - Create Route (Manual Mode)}
+\item \textbf{SD8 - Create Route (Automatic Mode)}
+\item \textbf{SD9 - Add Route's Details}
+\item \textbf{SD10 - Browse Inventory}
+\item \textbf{SD11 - Path Browsing}
+\item \textbf{SD12 - Path Navigation}
+\item \textbf{SD13 - Publish a route}
+\item \textbf{SD14 - Unpublish a route}
+\item \textbf{SD15 - Path Evaluation}
+\item \textbf{SD16 - Delete a route}
+
+
+\end{itemize}
+
 \subsection{Component interfaces}
 \subsection{Selected Architectural Styles and Patterns}
 \textbf{Four-tier client-server architecture}\\ 
-
-The system is  designed using a four-tier client-server architecture, meaning that the solution is divided into four logical layers, each one with a specific responsibility.
-This gives the system a clear structure , every tier focuses on one type of task  and the separation makes the architecture easy to understand,mantain and evolve over time.
-Each tier can be scaled or updated independently without impacting the others ones.
-
-\\ \\The first tier is the \textbf{presentation tier}. It containts a single client , the BPP APP installed on a mobile device.  This tier is responsible for the user interaction with the User Interface and for collecting device level data such as sensor data. The client doesn't contain additional business logic or data storage, it only sends  and  requests to the backend  and wait for the response.
-
-
-\\ \\ The second tier is the \textbf{xx tier}. This tier includes all the components that control how requests enter the system and how they are routed inside the architecture. This tier is implemented with elements like the API Firewall, Load Balancer, Api gateway and the Proxy. The Load Balancer distributes requests across multiple application server so the system can handle high traffic and continue working even if one server becomes unavailable. The Api Gateway is a controlled entry point to the backend services, it routes each request to the correct microservice. It is also a proxy server used to support routing and to implement a caching mechanism. This tier improves both security and scalability centralizing the management of incoming traffic. 
-\\
-\\ The thierd tier is the Application Server tier . In this tier the business logic of the application is exectud. The application tier is replicated across multiple Application Servers to guaranteee high availability and fault tolerance. Each server hosts the same set of microservices and every microservice is deployed in its own containter. In this way each microservice can be updated,restarted and scaled independently.This tier usually communicates internally using HTTP protocol and satisfy all the requests from the API Gateway.
-\\
-\\
-The fourth tier is the\textbf{ Data tier}, wich containts the persistent storage of the system. This Tier is seperated from the application tier to pretect the data and to keep the storage concerns independent from the business logic.The databases are deployed with replication across multiple servers, so data remains available even if one database has problems. In addition there is a software mechanism that synchronize the servers to keep the informations consistent.  
-
-In conclusion , the four-tier architecture was chosen becaus it enforces separation of concerns and produces a modular system in wich each layer has a well-defined role. This structure helps the systems to be more scalable because the different tiers can be replicated  and scaled horizontally if the app dimension grow up. In addition the architecture  make the system more secure,more reliable and easier to build.
-\\
-
-
+The system is designed using a four-tier client-server architecture, meaning that the solution is divided into four logical layers, each one with a specific responsibility.
+This gives the system a clear structure, every tier focuses on specific types of task and tiers separation makes the architecture easy to understand, maintain and evolve over time.
+Each tier can be scaled or updated independently without impacting the others.
+\\[5pt]
+The first tier is the \textbf{Presentation tier}, which is introduced to separate user interface concerns from business logic. This architectural choice enables independent evolution of the frontend components without affecting backend services.
+It contains a single client, the BBP APP installed on a mobile device. This tier is responsible for the user interaction through the User Interface and for collecting device data such as the sensor data. The client tier interacts with the application sending requests to the backend and waiting for the responses.
+\\[5pt]
+The second tier is the \textbf{Routing tier} which includes all the components that control how requests enter the system and how they are routed inside the architecture. This tier is implemented with elements like the Load Balancer, API Gateway and the Proxy Server. \\
+The \textit{Load Balancer} is important because it distributes requests across multiple APIs Gateway so the system can handle high traffic and continue working even if one server becomes unavailable. \\
+The \textit{API Gateway} is a controlled entry point to the backend services, so this part is necessary because it routes each request to the correct microservice. \\
+The \textit{Proxy Server} is used to support routing and to implement a caching mechanism. The aim of this tier is to improve both security and scalability centralizing the management of incoming traffic. 
+\\[5pt]
+The third tier is the \textbf{Application Server tier}. It is where the business logic of the application is executed. The application tier is replicated across multiple Application Servers to guarantee high availability and fault tolerance. Each server hosts the same set of microservices and every microservice is deployed in its own container. In this way each microservice can be updated, restarted and scaled independently. This tier communicates internally using HTTP protocol and satisfy all the requests from the API Gateway.
+\\[5pt]
+The fourth tier is the \textbf{Data tier}, which contains the persistent storage of the system. The decision to separate this tier from the application tier depends on protecting the data and keeping the storage concerns independent from the business logic. The databases are deployed with replication across multiple servers, so data remains available even if one database server has problems. In addition, there is a software mechanism that synchronize the servers to keep the information consistent. Each microservice has a dedicated DBMS to interact for retrieving and saving data, according to the \textit{database-per-service} pattern. 
+\\[5pt]
+The four-tier architecture is chosen because it enforces separation of concerns and produces a modular system in which each layer has a well-defined role. This structure helps the systems to be more scalable because the different tiers can be replicated and scaled horizontally if the app dimensions or the amount of the requests grow up. In addition the architecture makes the system more secure, more reliable and easier to build.
+\\[8pt]
 \textbf{Microservice architecture}\\
 The decision to implement a microservices architecture stems from various factors related to both the product and the development process. \\[5pt]
 From a product perspective, microservices enable fine-grained scaling through flexible deployment and selective replication of individual services, which is not possible in monolithic systems. This architectural choice also improves resilience by limiting the impact of localized failures, allowing the system to continue operating even in the presence of partial service outages.
 Additionally individual services can be reused across different contexts and combined to support multiple workflows.\\[5pt]
 From a process perspective, this architecture reduces team synchronization overhead by enabling small, autonomous teams with well defined responsibilities. 
-\\[5pt]
-\textbf{RESTful architectural style}\\
-\\
-\textbf{Security pattern}\\
-api gateway\\
-\textbf{Resiliency pattern}\\
-circuit breaker\\
+\\[8pt]
+\textbf{Security pattern}\\[5pt]
+The security is granted thanks to the API Gateway. It represents a controlled entry point to the backend services and is responsible for managing all incoming requests before they reach the application tier, forwarding them to the appropriate microservices. This architectural choice prevents direct access to internal services and improves system security by centralizing the management of incoming traffic and access control mechanisms.\\[3pt]
+The API Gateway also contributes to system scalability and reliability. To avoid having a single point of failure, multiple API Gateways instances are deployed and a Load Balancer is used to distribute requests among them. This ensures high availability and allows the system to handle high traffic while maintaining correct operation even in the presence of component failures.
+\\[8pt]
+\textbf{Resiliency pattern , circuit breaker}\\
+In order to avot delays and overload when a microservice is failing there is a circuit breaker at the entry point of each microservice and also on the existing communications link between microservices. Every time  a request is sent to a microservice, the circuit breaker monitors the outcome of the call. If the call succeeds, traffic continues normally. If the call fails or the response time becomes too high, the circuit breaker switches to an open state and stops forwarding requests, immediately returning an error or fallback response instead of waiting.
+\\The circuit breaker prevents components from continuosly invoking a microservice that is slow or down reducing useless resource consumption. As a result, the architecture remains more stable and resilient and healthy microservice can keep working even when another service is temporarily unavailable.
+
+\\[8pt]
 \textbf{Communication pattern}\\
-In the system both synchronous and asynchronous communication are used. The communication pattern is choose depending on the nature and the expecting duration of the interaction.
-
-
-interazioni con l'utente -> sincrone \\
-salvataggio dati e GPS / operazioni più lunghe -> asincrono\\
-\textbf{Routing pattern}\\
+In the system both synchronous and asynchronous communication are used. The communication pattern is chosen depending on the nature and the expecting duration of the interaction. \\[5pt]
+The interactions with the user are handled \textit{synchronously}, as they require immediate feedback to ensure a responsive user experience. In synchronous communication, both the client and the service are actively involved at the same time, allowing requests to be processed and responses to be returned without delay. \\[5pt]
+Otherwise, operations that take more time or do not need an immediate response are handled asynchronously, such as data saving and interactions with external services and device sensors. Asynchronous communication enables the system to decouple the involved components, allowing each participant to proceed independently and improving system scalability and resource use. \\[8pt]
 \textbf{Database-per-service pattern}\\
+The Database-per-service pattern means that each microservice owns and manages its own dedicated schema instead of using a single shared database for the whole system . This choice is consistent with a microservices architecture because it keeps services independent, every microservice can design its data model in the best way for its domain and can evolve its schema overt time without forcing changes on other services . Another benefit is that there is no single logical point of failure at the data level, the separation also improves security because access rules can be applied per service and each microservice can be allowed to access only its own data.
+When different microservices share information, their database are synchronized at the application lever, this approach preserves service autonomy and leads to eventual consistency, where data becomes consistent across services after the synchronization messages are processed.
 \subsection{Other design decisions}
-perche controller-service-repository invece di model-view-controller \\
-sicurezza: utilizzo firewall e 4 tier \\
-server proxy\\
-distribuzione del carico con load balancer\\
+
+\textbf{Firewalls} \\
+The use of firewall is a ley security decision in the architecture. There are two firewalls that control and filter traffic in two critical points: the entrance of the routing tier and the entrance of the database layer.
+The \textbf{API Firewall } is placed at the boundary between the external world and the internal infrastructure. Its main role is to protect the backend APIs from malicious traffic coming from the internet. It inspects incoming request,applies security rules, filters attack and abnormal request patterns. 
+In practice, it ensures that only valid and safe calls can enter the internal network providing a first level of defense before traffic reaches the routing system and the application servers.
+\\
+\\
+\textbf{Proxy}\\
+The system includes a \textbf{proxy server} mainly configured to provide a caching mechanism. This means that when the same information is requested multiple times, the proxy can store the response and serve it again without forwarding every request to the backend.
+
+Thanks to this approach, the load balancers send requests to the proxy servers instead of querying the API Gateways directly. If the proxy already has a valid cached response, it can return the data immediately. This reduces the load on the API gateways and application servers and improves response time.
+\\
+\textbf{Duplicated Servers and Load Balancer}\\
+The deployment has multiple replicated application servers and a load balancer to guarantee high availability,scalability and fault tolerance. 
+The \textbf{load balancer}  acts as a single entry point for backend traffic and distributes incoming requests across the application servers. This prevents one server from becoming a  bottleneck and allows the system to handle higher workloads more efficiently. 
+
+Having \textbf{multiple application server} also ensure that the service remains available even if one server fails or becomes overloaded.
