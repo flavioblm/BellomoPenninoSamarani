@@ -30,11 +30,11 @@ The platform consists of several components grouped into two main categories: ba
     \item \textit{Inventory microservice}
     \\ This service saved and shows cyclist's personal routes and paths. It supports filters by date, distance and score . When the cyclist open a path it returns the list of all the routes of that path and details
     \item \textit{ManagePath microservice}
-    \\This service manages paths in the BBP . It creates automatically a new path when it is created a route on a non existing path. It manages the visibility of the path (public or private) and eventually the deletion of the path.
+    \\This service manages paths in the BBP. It creates automatically a new path when it is created a route on a non existing path. It manages the visibility of the path (public or private) and eventually the deletion of the path.
     \item \textit{ManageRoute microservice}
-    \\This service manages routes, a single ride on a path. It lets user create a route either in manual mode or automatic mode. It also enriches the route with other detail and supports the operation of publish, unpublish and delete.
+    \\This service manages routes, a single ride on a path. It lets user create a route either in manual mode or automatic mode. It also enriches the route with other details and supports the operation of publish, unpublish and delete.
     \item \textit{Navigation system microservice} 
-    \\ this service implements a navigation support for the cyclist. When a cyclist selects a path the navigation system guides the cyclist along the streets of that path until the end point is reached.
+    \\ This service implements a navigation support for the cyclist. When a cyclist selects a path the navigation system guides the cyclist along the streets of that path until the end point is reached.
     \item \textit{Recommendation system microservice} 
     \\ This service supports the user search of a path. From a start and an end point received in input it recommends a list of path ranked by score. Moreover, the service merges different information from several routes on the same path keeping the path status updated.
     \item \textit{ManageSensorsData microservice}
@@ -108,47 +108,36 @@ This sequence diagram illustrates the flow of messages for the Account Creation.
 If the email verification is successful, the BBP App displays the homepage to the cyclist; otherwise, an error message is shown.
 \newpage
 \item \textbf{SD2 - Login}
-
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{Images/SD/SD2_Login.png}
 \caption{\label{fig:metamodel2}Sequence Diagram related to UC2 - Login}
 \end{figure}
-
 This sequence diagram illustrates the flow of messages for the Login. The cyclist presses the Login Button and the BBP App shows the Login screen. This screen contains a form that allows the  Cyclist to enter their credentials in particular email and password. After the compilation of the form the Cyclist press the Login button again. At this point the application checks if the credentials provided by the cyclist are correct querying the DBMS. The BBP APP sends entered email and password to the API Gateway, which forwards the request to the appropriate microservice, Authentication Microservice. This microservice queries its DBMS and generates a response , which is send back through the involved components to the user. If the credentials verification is successful, the Authentication Microservice retrieves the CyclistData and the HomepageDAta, and the BBP App displays the homepage to the cyclist, otherwise an error message is shown.
-
 \newpage
 \item \textbf{SD3 - Guest access}
-
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{Images/SD/SD3_GuestAccess.png}
 \caption{\label{fig:metamodel2}Sequence Diagram related to UC3 - Guest Access}
 \end{figure}
-
 This sequence diagram illustrates the flow of messages for the Guest Access. The Guest presses the Continue As Guest Button and the BBP App shows a confirmation overlay. After the Guest confirms the choice by pressing again the Continue as Guest Button, the application requests the data needed to display the homepage. In order to retrieve these data, the BBP App sends a request to the API gateway, which forwards the request to the Authentication Microservice. The microservice queries its DBMS in order to obtain the HomepageData and generates a response, which is propagated back through the involved component to the user. If the confirmation go well , the BBP displays the homepage otherwise , if the Guest presses the Cancel Button the confirmation overlay is closed. 
-
 \newpage
 \item \textbf{SD4 - Logout}
-
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{Images/SD/SD4_Logout.png}
 \caption{\label{fig:metamodel2}Sequence Diagram related to UC4 - Logout}
 \end{figure}
-
 This sequence diagram illustrates the flow of messages for the Logout. The Cyclist presses the Account Button and the BBP App Requests the data needed to display the account page. In order to retrieve these data, the BBP App sends the account identifier to the API Gateway, which forwards the request to the Account Microservice. This microservice queries the DBMS in order to obtain the CyclistData and generates a response, which is propagated back through the involved components to the user. After the account page is shown, the Cyclist presses the Logout Button and the BBP App shows a confirmation overlay. If the Cyclist confirms the choice the BBP App displays the authentication page.
-
 \newpage
 \item \textbf{SD5 - Manage Account}
-
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{Images/SD/SD5_ManageAccount.png}
 \caption{\label{fig:metamodel2}Sequence Diagram related to UC5 - Manage Account}
 \end{figure}
 This sequence diagram illustrates the flow of messages for the Account Management. The Cyclist presses the Accoun Button and the BBP App requests the data needed to display the account page. In order to retrieve these data, the BBP App sends the account identifier to the API Gateway, which forwards the request to the Account Microservice. This microservice queries its DBMS in order to obtain the CyclistData and generates a response, which is propagated back through the involved components to the user. After the account page is shown the Cyclist presses the Edit Account Button and the BBP App shows the edit page. This screen contains a form that allows the Cyclists to update their personal information: name,email,password and photo. After the compilation of the editable form, the Cyclist press the Confirm Button. At this point the application checks if the new email provided by the cyclist already exists in the DBMS. In order to perform this check, the BBP App sends the updated data to the API Gateway, which forwards the request to the Account Microservice. This microservice queries its DBMS that generates a response which is propagated back through the involved components to the user.
-
 \newpage
 \item \textbf{SD6 - Delete Account}
 \begin{figure}[H]
@@ -156,9 +145,7 @@ This sequence diagram illustrates the flow of messages for the Account Managemen
 \includegraphics[width=\textwidth]{Images/SD/SD6_DeleteAccount.png}
 \caption{\label{fig:metamodel2}Sequence Diagram related to UC6 - Delete Account}
 \end{figure}
-
 This sequence diagram illustrates the flow of messages for the Account Deletion. The cyclist press the Account Button and the BBP App requests the data needed to display the account page. In order to retrieve these data, the BBP  App sends the account identifier to the API Gateway, which forwards the request to the Account Microservice. This microservice queries its DBMS in order to obtain the CyclistData and generates a response, which is propagated back through the involved components to the user. After the page is shown the Cyclist presses the Delete Button and the BBP App shows a confirmation overlay. If the Cyclist confirms the choice the BBP app sends a delete request containing the account identifier to the API Gateway, which forwards the request to the Account Microservice. The microservice queries its DBMS in order to delete the account and generates a response which is propagated back through the involved components to the user. If the deletion works, the BBP APP shows the authentication page.
-
 \newpage
 \item \textbf{SD7 - Create Route (Manual Mode)}
 \begin{figure}[H]
@@ -167,7 +154,6 @@ This sequence diagram illustrates the flow of messages for the Account Deletion.
 \caption{\label{fig:metamodel2}Sequence Diagram related to UC7 - Create Route(Manual mode)}
 \end{figure}
 This sequence diagram illustrates the flow of messages for the Route Creation in Manual Mode. The cyclist presses the Create Button and the BBP App shows the creation mode page. After the Cyclist presses the Start Button, the BBP App shows the manual creation page. This screens allows the Cyclist to insert the geographical points that define the route. After the insertion of the points the Cyclist presses the Continue Button. At this point the application sends the inserted points to the Manage Route Microservice. This microservice manage locally these points and generates a response which is propagated back through the involved components to the user. If the operation is successful the BBP App shows the add details page in order to continue the next step of the use cases, UC9 add route's details.
-
 \newpage
 \item \textbf{SD8 - Create Route (Automatic Mode)}
 \begin{figure}[H]
@@ -179,7 +165,6 @@ This sequence diagram illustrates the message flow for route creation in Automat
 While tracking is active, the BBP App starts collecting sensor data by sending requests to the Manage Sensors Data Microservice. The application continuously receives and processes the sensor information during the tracking phase.
 When the cyclist presses the Stop Tracking button, the BBP App stops sending sensor data. The data collected up to that point is stored in the Manage Sensors Data DBMS and a confirmation message is returned to the BBP App. Through the API Gateway, the BBP App then forwards the acquired data to the Manage Route Microservice.
 The saved route is displayed to the cyclist as a map representing the tracked path. Finally, the cyclist presses the Continue button, and the BBP App displays the Add Route Details page, allowing the user to proceed with the next step of the use case (UC9 – Add Route Details).
-
 \newpage
 \item \textbf{SD9 - Add Route's Details}
 \begin{figure}[H]
@@ -239,7 +224,6 @@ This sequence diagram illustrates the flow of messages for unpublish a route. Th
 \item \textbf{SD15 - Path Evaluation}
 \begin{figure}[H]
 \centering
-
 \includegraphics[width=0.94\textwidth]{Images/SD/SD15_PathEvaluation.png}
 \caption{\label{fig:metamodel2}Sequence Diagram related to UC15 - Path Evaluation}
 \end{figure}
@@ -264,53 +248,53 @@ This sequence diagram illustrates the flow of messages for the deletion of a rou
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
-void & \url{PressSignUpButton()} & User taps the Sign Up button on the signup screen. \\
+void & \texttt{PressSignUpButton()} & User taps the Sign Up button on the signup screen. \\
 \hline
-void & \url{PressLoginButton()} & User taps the Login button on the login screen. \\
+void & \texttt{PressLoginButton()} & User taps the Login button on the login screen. \\
 \hline
-void & \url{Insert(name,email,password)} & User enters name, email, and password. \\
+void & \texttt{Insert(String name, String email, String password)} & User enters name, email, and password. \\
 \hline
-void & \url{PressContinueAsGuestButton()} & User continues without creating an account. \\
+void & \texttt{PressContinueAsGuestButton()} & User continues without creating an account. \\
 \hline
-void & \url{PressCancelBotton()} & User cancels the current action. \\
+void & \texttt{PressCancelBotton()} & User cancels the current action. \\
 \hline
-void & \url{PressAccountButton()} & User opens the account section. \\
+void & \texttt{PressAccountButton()} & User opens the account section. \\
 \hline
-void & \url{PressLogoutButton()} & User logs out from the application. \\
+void & \texttt{PressLogoutButton()} & User logs out from the application. \\
 \hline
-void & \url{PressCreateButton()} & User starts creating a new item (e.g., route/path). \\
+void & \texttt{PressCreateButton()} & User starts creating a new item (e.g., route/path). \\
 \hline
-void & \url{PressStartButton()} & User starts the selected workflow. \\
+void & \texttt{PressStartButton()} & User starts the selected workflow. \\
 \hline
-void & \url{InsertGeographicalPoints(startPoint,wayPoints,endPoint)} & User provides start point, waypoints, and end point. \\
+void & \texttt{InsertGeographicalPoints(Location startPoint, List<Location> wayPoints, Location endPoint)} & User provides start point, waypoints, and end point. \\
 \hline
-void & \url{PressStartTrackingButton()} & User starts route tracking from the UI. \\
+void & \texttt{PressStartTrackingButton()} & User starts route tracking from the UI. \\
 \hline
-void & \url{PressStartTracking()} & App begins the tracking session. \\
+void & \texttt{PressStartTracking()} & App begins the tracking session. \\
 \hline
-void & \url{AddDetails(routeDetails,name)} & App attaches route details and a route name. \\
+void & \texttt{AddDetails(Route routeDetails, String name)} & App attaches route details and a route name. \\
 \hline
-void & \url{EvaluateStatus(status)} & App evaluates and stores the given status. \\
+void & \texttt{EvaluateStatus(Status status)} & App evaluates and stores the given status. \\
 \hline
-void & \url{PressSaveButton()} & User saves the current data. \\
+void & \texttt{PressSaveButton()} & User saves the current data. \\
 \hline
-void & \url{PressInventoryButton()} & User opens the inventory screen. \\
+void & \texttt{PressInventoryButton()} & User opens the inventory screen. \\
 \hline
-void & \url{ApplyFilter(filter)} & User applies a filter to the list. \\
+void & \texttt{ApplyFilter(Status status)} & User applies a filter to the list. \\
 \hline
-void & \url{ApplySorting(sortType)} & User applies a sorting rule to the list. \\
+void & \texttt{ApplySorting(int sortType)} & User applies a sorting rule to the list. \\
 \hline
-void & \url{InsertData(startPoint,endPointTollerance)} & User enters search inputs and end-point tolerance. \\
+void & \texttt{InsertData(Location startPoint, Location endPoint, int Tollerance)} & User enters search inputs and end-point tolerance. \\
 \hline
-void & \url{PressSearchButton()} & User starts a search for available paths. \\
+void & \texttt{PressSearchButton()} & User starts a search for available paths. \\
 \hline
-void & \url{SelectAPath(path_id)} & User selects a path by its id. \\
+void & \texttt{SelectAPath(int pathId)} & User selects a path by its id. \\
 \hline
-void & \url{PressStartNavigationButton()} & User starts navigation for the selected path. \\
+void & \texttt{PressStartNavigationButton()} & User starts navigation for the selected path. \\
 \hline
-void & \url{UserMove()} & App updates the user position during movement. \\
+void & \texttt{UserMove()} & App updates the user position during movement. \\
 \hline
-SensorData & \url{GetSensorsData()} & App reads the latest sensor data. \\
+SensorData & \texttt{GetSensorsData()} & App reads the latest sensor data. \\
 \hline
 \end{tabularx}
 \end{table}
@@ -319,14 +303,27 @@ SensorData & \url{GetSensorsData()} & App reads the latest sensor data. \\
 \centering
 \begin{tabularx}{\textwidth}{|L{3cm}|L{6.5cm}|Y|}
 \hline
-void & \url{ExpandView(route_id)} & User opens an expanded view for a route. \\
+void & \texttt{ExpandView(routeId)} & User opens an expanded view for a route. \\
 \hline
-void & \url{PressPublishButton()} & User publishes the route to make it public. \\
+void & \texttt{PressPublishButton()} & User publishes the route to make it public. \\
 \hline
-void & \url{PressUnpublishButton()} & User unpublishes the route to make it private. \\
+void & \texttt{PressUnpublishButton()} & User unpublishes the route to make it private. \\
 \hline
-void & \url{PressDeleteButton()} & User taps the Delete button for a route. \\ \hline
-void & \url{PressContinueButton()} & User confirms the action in the confirmation overlay. \\ \hline
+void & \texttt{PressDeleteButton()} & User taps the Delete button to delete own account. \\ \hline
+void & \texttt{PressDeleteRouteButton()} & User taps the Delete button for a route. \\ \hline
+void & \texttt{PressContinueButton()} & User confirms the action in the confirmation overlay. \\ \hline
+void & \texttt{PressConfirmButton()} & User confirms the action in the confirmation overlay. \\ \hline
+void & \texttt{PressEditAccountButton()} & User opens the view to edit the account data. \\ \hline
+void & \texttt{Insert(String name, String email, String newEmail, String password, Image photo)} & User enters name, newEmail, password and photo to modify them in the edit profile screen. \\
+\hline
+void & \texttt{PressContinueButton()} & User confirms and continues to the next step. \\
+\hline
+void & \texttt{PressStopTrackingButton()} & User stops the current tracking session. \\
+\hline
+void & \texttt{Edit(List<Street> data)} & App edits the currently loaded data. \\
+\hline
+void & \texttt{SubmitCredentials(String email, String password)} & User confirm the credentials inserted in the login page. \\
+\hline
 \end{tabularx}
 \end{table}
 % =========================
@@ -340,22 +337,19 @@ void & \url{PressContinueButton()} & User confirms the action in the confirmatio
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
-HttpResponseCode & \url{Post_CreateAccount(name,email,password)} & Creates a new account and returns data for the home page. \\
+HttpResponse & \texttt{PostCreateAccount(String name, String email, String password)} & Creates a new account and returns data for the home page. \\
 \hline
-HttpResponseCode & \url{Post_Login(email,password)} & Authenticates the user and returns home page data. \\
+HttpResponse & \texttt{PostLogin(String email, String password)} & Authenticates the user and returns home page data. \\
 \hline
-HttpResponseCode & \url{Get_HomePageData()} & Retrieves the data needed to render the home page. \\
-\hline
-List<Route> & \url{edit(data)} & Updates stored home page data with the provided values. \\
-\hline
-Cyclist & \url{Get_AccountData(account_id)} & Retrieves the data related to a specific account id. \\
+HttpResponse & \texttt{GetHomePageData()} & Retrieves the data needed to render the home page. \\
 \hline
 \end{tabularx}
 \end{table}
+\newpage
 % =========================
-% Authentication Microservice DB
+% Authentication DB
 % =========================
-\subsubsection{Authentication Microservice DB}
+\subsubsection{Authentication DB}
 \begin{table}[H]
 \centering
 \small
@@ -363,17 +357,14 @@ Cyclist & \url{Get_AccountData(account_id)} & Retrieves the data related to a sp
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
-Cyclist & \url{Query_CreateAccount(name,email,password)} & Inserts a new account record in the database. \\
+Cyclist & \texttt{QueryCreateAccount(String name, String email, String password)} & Inserts a new account record in the database. \\
 \hline
-List<Route> & \url{Query_HomePageData()} & Reads home page data from the database. \\
+List<Route> & \texttt{QueryHomePageData()} & Reads home page data from the database. \\
 \hline
-Cyclist & \url{Query_Login(email,password)} & Verifies credentials and returns cyclist data. \\
-\hline
-Cyclist & \url{Query_AccountData(account_id)} & Retrieves the data related to a specific account id. \\
+Cyclist & \texttt{QueryLogin(String email, String password)} & Verifies credentials and returns cyclist data. \\
 \hline
 \end{tabularx}
 \end{table}
-\newpage
 % =========================
 % Account Microservice
 % =========================
@@ -385,22 +376,29 @@ Cyclist & \url{Query_AccountData(account_id)} & Retrieves the data related to a 
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
-Cyclist & \url{Get_AccountData(account_id)} & Returns profile and account settings for the given account id. \\
+HttpResponse & \texttt{GetAccountData(int accountId)} & Returns profile and account settings for the given account id. \\
 \hline
-Cyclist & \url{Put_ManageAccount(name,email,new_email,password,photo)} & Updates account data and returns the updated cyclist data. \\
+HttpResponse & \texttt{PutManageAccount(String name, String  email, String newEmail, String password, Image photo)} & Updates account data and returns the updated cyclist data. \\
 \hline
-Cyclist & \url{Delete_Account(account_id)} & Deletes the account associated with the given id. \\
+HttpResponse & \texttt{DeleteAccount(int accountId)} & Deletes the account associated with the given id. \\
 \hline
-Cyclist & \url{Put_UpdateStatistics(routeDetails,account_id)} & Updates cyclist statistics based on route details. \\
+HttpResponse & \texttt{PutUpdateStatistics(Route routeDetails, int accountId)} & Updates cyclist statistics based on route details. \\
 \hline
-Cyclist & \url{Get_Cyclist(account_id)} & Retrieves cyclist information for the given account id. \\
+HttpResponse & \texttt{GetCyclist(int accountId)} & Retrieves cyclist information for the given account id. \\
+\hline
+HttpResponse & \texttt{PutUpdateIncrAccStats(accountId)} & Increments cyclist statistics using the provided sequence data. \\
+\hline
+HttpResponse & \texttt{PutUpdateDecrAccStats(accountId)} & Decrements cyclist statistics using the provided sequence data. \\
+\hline
+HttpResponse & \texttt{PutUpdateAccStats(accountId)} & Decrements cyclist statistics using the provided sequence data. \\
 \hline
 \end{tabularx}
 \end{table}
+\newpage
 % =========================
-% Account Microservice DB
+% Account DB
 % =========================
-\subsubsection{Account Microservice DB}
+\subsubsection{Account DB}
 \begin{table}[H]
 \centering
 \small
@@ -408,17 +406,23 @@ Cyclist & \url{Get_Cyclist(account_id)} & Retrieves cyclist information for the 
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
-void & \url{Query_DeleteAccount(account_id)} & Removes the account record from the database. \\
+void & \texttt{QueryDeleteAccount(int accountId)} & Removes the account record from the database. \\
 \hline
-Cyclist & \url{Query_AccountData(account_id)} & Fetches account data for the specified account id. \\
+Cyclist & \texttt{QueryAccountData(int accountId)} & Fetches account data for the specified account id. \\
 \hline
-Cyclist & \url{Query_GetCyclist(new_email)} & Retrieves cyclist data using the provided email. \\
+Cyclist & \texttt{QueryGetCyclist(String newEmail)} & Retrieves cyclist data using the provided email. \\
 \hline
-Cyclist & \url{Query_ManageAccountData(name,email,password,photo)} & Updates cyclist account fields in the database. \\
+Cyclist & \texttt{QueryManageAccountData(String name, String email, String newEmail, String password, Image photo)} & Updates cyclist account fields in the database. \\
 \hline
-Cyclist & \url{Query_UpdateStatistics(routeDetails,account_id)} & Persists updated statistics for the given account id. \\
+Cyclist & \texttt{QueryUpdateStatistics(Route routeDetails, int accountId)} & Persists updated statistics for the given account id. \\
 \hline
-Cyclist & \url{Query_SelectCyclist(account_id)} & Selects a cyclist row by account id. \\
+Cyclist & \texttt{QuerySelectCyclist(int accountId)} & Selects a cyclist row by account id. \\
+\hline
+void & \texttt{QueryUpdateIncrAccStats(accountId)} & Updates and increments statistics for the given account id. \\
+\hline
+void & \texttt{QueryUpdateDecrStats(accountId)} & Updates and decrements statistics for the given account id. \\
+\hline
+void & \texttt{QueryUpdateAccStats(accountId)} & Updates account statistics for the specified account id. \\
 \hline
 \end{tabularx}
 \end{table}
@@ -433,19 +437,22 @@ Cyclist & \url{Query_SelectCyclist(account_id)} & Selects a cyclist row by accou
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
-HttpResponseCode & \url{Post_CreateManual(startPoint,wayPoints,endPoint)} & Creates a manual route from the provided points. \\
+HttpResponse & \texttt{PostCreateManual(Location startPoint, List<Location> wayPoints, Location endPoint)} & Creates a manual route from the provided points. \\
 \hline
-HttpResponseCode & \url{Get_TrackingData()} & Returns the current tracking data collected during the session. \\
+HttpResponse & \texttt{GetTrackingData()} & Returns the current tracking data collected during the session. \\
 \hline
-HttpResponseCode & \url{Post_CreateAutomatic(data)} & Creates a route automatically from the provided tracking data. \\
+HttpResponse & \texttt{PostCreateAutomatic(List<SensorData> data)} & Creates a route automatically from the provided tracking data. \\
 \hline
-HttpResponseCode & \url{Put_makeRoutePublic(path_id,route_id)} & Marks the specified route as public. \\
+HttpResponse & \texttt{PutMakeRoutePublic(int pathId, int routeId)} & Marks the specified route as public. \\
 \hline
-HttpResponseCode & \url{Put_makeRouteUnPublic(path_id,route_id)} & Marks the specified route as not public. \\
+HttpResponse & \texttt{PutMakeRouteUnPublic(int pathId, int routeId)} & Marks the specified route as not public. \\
 \hline
-HttpResponseCode & \url{Delete_route(path_id,route_id)} & Deletes a route and triggers updates on paths and statistics. \\ \hline
+HttpResponse & \texttt{DeleteRoute(int pathId, int routeId)} & Deletes a route and triggers updates on paths and statistics. \\ \hline
+HttpResponse & \texttt{PostRoute(Route routeDetails, String name, Status status)} & Creates a new route and returns the generated route id. \\
+\hline
 \end{tabularx}
 \end{table}
+\newpage
 % =========================
 % Manage Route DB
 % =========================
@@ -457,23 +464,17 @@ HttpResponseCode & \url{Delete_route(path_id,route_id)} & Deletes a route and tr
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
-HttpResponseCode & \url{Post_CreateManual(startPoint,wayPoints,endPoint)} & Stores the manually created route points in the database. \\
+HttpResponse & \texttt{PostCreateManual(Location startPoint, List<Location> wayPoints, Location endPoint)} & Stores the manually created route points in the database. \\
 \hline
-HttpResponseCode& \url{Get_TrackingData()} & Reads tracking data from the database. \\
+HttpResponse& \texttt{PostCreateAutomatic(List<Location> data)} & Stores automatically generated route data in the database. \\
 \hline
-HttpResponseCode& \url{Post_CreateAutomatic(data)} & Stores automatically generated route data in the database. \\
+int & \texttt{QueryInsertRoute(int pathId, Route routeDetails, String name, Status status,WeatherCondition weatherConditions)} & Inserts a route and returns the generated route id. \\
 \hline
-int & \url{Query_InsertRoute(path_id,routeDetails,name,status,weatherConditions)} & Inserts a route and returns the generated route id. \\
+void & \texttt{QueryMakerRoutePublic(int routeId)} & Updates the route visibility to public in the database. \\
 \hline
-int & \url{query_MakerRoutPublic(route_id)} & Updates the route visibility to public in the database. \\
+void & \texttt{QueryMakeRoutePrivate(int routeId)} & Updates the route visibility to private in the database. \\
 \hline
-int & \url{Query_updateIncrAccStats()} & Increments account statistics counters in the database. \\
-\hline
-int & \url{Query_makeRoutePrivate(route_id)} & Updates the route visibility to private in the database. \\
-\hline
-void & \url{Query_deleteRoute(route_id)} & Deletes the route row from the database. \\ \hline
- & \url{Query_updateAccStats(numRoutes,numPublishedRoutes,totDistance,totTime)} & Updates account statistics after route deletion. \\ \hline
-& \url{Query_updateDecrAccStats()} & Decrements account statistics after unpublishing a route. \\ \hline
+void & \texttt{QueryDeleteRoute(int routeId)} & Deletes the route row from the database. \\ \hline
 \end{tabularx}
 \end{table}
 % =========================
@@ -487,11 +488,13 @@ void & \url{Query_deleteRoute(route_id)} & Deletes the route row from the databa
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
--- & \url{startSendingSensorsData(Data)} & Starts streaming sensor data from the client. \\
+void & \texttt{startSendingSensorsData(SensorData data)} & Starts streaming sensor data from the client. \\
 \hline
--- & \url{stopSendingSensorData()} & Stops streaming sensor data from the client. \\
+void & \texttt{stopSendingSensorData()} & Stops streaming sensor data from the client. \\
 \hline
--- & \url{Post_SendSensorsData(sensorsDAta)} & Sends a batch of sensor readings to the backend. \\
+void & \texttt{PostSendSensorsData(SensorData sensorsData)} & Sends a batch of sensor readings to the backend. \\
+\hline
+SensorData & \texttt{GetTrackingData()} & Retrieves stored tracking/sensor data from the database. \\
 \hline
 \end{tabularx}
 \end{table}
@@ -506,14 +509,11 @@ void & \url{Query_deleteRoute(route_id)} & Deletes the route row from the databa
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
--- & \url{Query_SaveSensorData(data)} & Saves sensor data records in the database. \\
-\hline
--- & \url{Get_TrackingData()} & Retrieves stored tracking/sensor data from the database. \\
-\hline
--- & \url{Post_Route(routeDetails,name,status)} & Stores route metadata (details, name, status) in the database. \\
+void & \texttt{QuerySaveSensorData(List<SensorData> data)} & Saves sensor data records in the database. \\
 \hline
 \end{tabularx}
 \end{table}
+\newpage
 % =========================
 % Manage Path Microservice
 % =========================
@@ -525,20 +525,26 @@ void & \url{Query_deleteRoute(route_id)} & Deletes the route row from the databa
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
--- & \url{Get_CompatiblePath(streets)} & Returns paths compatible with the given streets. \\
+HttpResponse & \texttt{GetCompatiblePath(List<Street> streets)} & Returns paths compatible with the given streets. \\
 \hline
--- & \url{Post_Paths(streets,name)} & Creates new paths using the provided streets and name. \\
+HttpResponse & \texttt{PostPaths(List<Street> streets, String name)} & Creates new paths using the provided streets and name. \\
 \hline
-publicroute & \url{Get_publicRoutes(path_id)} & Retrieves public routes associated with the given path id. \\
+HttpResponse & \texttt{GetpublicRoutes(int pathId)} & Retrieves public routes associated with the given path id. \\
 \hline
-publicroute & \url{put_makePathPrivate(path_id)} & Makes the specified path private. \\
+HttpResponse & \texttt{PutMakePathPrivate(int pathId)} & Makes the specified path private. \\
+\hline
+HttpResponse & \texttt{PutMakePathPublic(int pathId)} & Makes the specified path public. \\
+\hline
+HttpResponse & \texttt{DeletePath(int pathId)} & Deletes the selected path. \\
+\hline
+HttpResponse & \texttt{GetPrivateRoutes(int pathId)} & Retrieves private routes associated with the given path. \\
 \hline
 \end{tabularx}
 \end{table}
 % =========================
 % Manage Path DB
 % =========================
-\subsection{Manage Path DB}
+\subsubsection{Manage Path DB}
 \begin{table}[H]
 \centering
 \small
@@ -546,16 +552,22 @@ publicroute & \url{put_makePathPrivate(path_id)} & Makes the specified path priv
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
-List<int>& \url{Query_SelectCompatiblePath(path)} & Selects compatible paths from the database. \\
+List<int>& \texttt{QuerySelectCompatiblePath(Path path)} & Selects compatible paths from the database. \\
 \hline
-int & \url{Query_CreatePath(streets,name)} & Inserts a new path and returns its path id. \\
+int & \texttt{QueryCreatePath(List<Street> streets, String name)} & Inserts a new path and returns its path id. \\
 \hline
-List<int> & \url{Query_SelectPublicRoutes(path_id)} & Retrieves public routes for the specified path id. \\
+List<int> & \texttt{QueryPrivateRoutes(int pathId)} & Returns the list of private routes for the given path id. \\
 \hline
-List<int> & \url{Query_makePathPrivate(path_id)} & Updates the path visibility to private in the database. \\
+void & \texttt{QueryMakePathPrivate(int pathId)} & Updates the path visibility to private in the database. \\
 \hline
-List<int> & \url{Get_privateRoutes(path_id)} & Retrieves private routes associated with the given path. \\ \hline
-HttpResponseCode & \url{Delete_path(path_id)} & Deletes the path when it has no remaining routes. \\ \hline
+List<int> & \texttt{QueryPublicRoutes(int pathId)} & Returns the list of public routes for the given path id. \\
+\hline
+void & \texttt{QueryMakePathPublic(pathId)} & Updates the path visibility to public in the database. \\
+\hline
+void & \texttt{QueryMakePathPrivate(pathId)} & Updates the path visibility to private in the database. \\
+\hline
+void & \texttt{QueryDeletePath(int pathId)} & Deletes a path record from the database. \\
+\hline
 \end{tabularx}
 \end{table}
 % =========================
@@ -569,10 +581,11 @@ HttpResponseCode & \url{Delete_path(path_id)} & Deletes the path when it has no 
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
-List<Path> & \url{Get_InventoryData(account_id)} & Returns the inventory (saved paths/routes) for the given account id. \\
+HttpResponse & \texttt{GetInventoryData(int accountId)} & Returns the inventory (saved paths/routes) for the given account id. \\
 \hline
 \end{tabularx}
 \end{table}
+\newpage
 % =========================
 % Inventory DB
 % =========================
@@ -584,7 +597,7 @@ List<Path> & \url{Get_InventoryData(account_id)} & Returns the inventory (saved 
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
-List<Path> & \url{Get_InventoryData(account_id)} & Queries and returns inventory data for the given account id. \\
+List<Path> & \texttt{QueryInventoryData(int accountId)} & Queries and returns inventory data for the given account id. \\
 \hline
 \end{tabularx}
 \end{table}
@@ -599,13 +612,11 @@ List<Path> & \url{Get_InventoryData(account_id)} & Queries and returns inventory
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
--- & \url{Get_BestPath(startPoint,endPoint,tollerance)} & Finds the best path that matches the inputs and tolerance. \\
+HttpResponse & \texttt{GetBestPath(Location startPoint, Location endPoint, int tollerance)} & Finds the best path that matches the inputs and tolerance. \\
 \hline
-HttpResponseCode & \url{UpdateScore(path_id,route_id,mode)} & Updates the path score after publish/unpublish changes. \\ \hline
-void & \url{ComputeMostCommonStatus(routesStatus)} & Computes the most common status (or average in case of tie). \\ \hline
-void & \url{ComputeScore(path_id,avgDuration,avgDistance,pathStatus)} & Computes the final score for the path. \\ \hline
-void & \url{routes.add(route_id)} & Adds the route id to the published routes list. \\ \hline
-void & \url{routes.remove(route_id)} & Removes the route id from the published routes list. \\ \hline
+HttpResponse & \texttt{UpdateScore(int pathId, int routeId, int mode)} & Updates the path score after publish/unpublish changes. \\ \hline
+void & \texttt{ComputeMostCommonStatus(List<Status> routesStatus)} & Computes the most common status (or average in case of tie). \\ \hline
+void & \texttt{ComputeScore(int pathId, Time avgDuration, float avgDistance, Status pathStatus)} & Computes the final score for the path. \\ \hline
 \end{tabularx}
 \end{table}
 % =========================
@@ -619,23 +630,22 @@ void & \url{routes.remove(route_id)} & Removes the route id from the published r
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
-Paths & \url{Query_BestPath(startPoint,endPoint,tollerance)} & Selects the best path from the database using the given constraints. \\
+List<Path> & \texttt{QueryBestPath(Location startPoint, Location endPoint, int tollerance)} & Selects the best path from the database using the given constraints. \\
 \hline
-routes (List<int>) & \url{Query_selectMostRecentPublishedRoutes(path_id)} & Retrieves the most recent published routes for the path. \\ \hline
-List<Status> & \url{getRouteStatus(route_id)} & Returns the status of a single route. \\ \hline
-List<Status> & \url{getRouteStatus(routes)} & Returns the status list for multiple routes. \\ \hline
-HttpResponseCode & \url{Query_updatePathStatus(path_id,routeStatus)} & Updates the path status using a single route status. \\ \hline
-HttpResponseCode & \url{Query_updatePathStatus(path_id,mostCommonStatus)} & Updates the path status using the aggregated status. \\ \hline
-void & \url{Query_updatePathStatistics(path_id)} & Updates and returns average duration and average distance for the path. \\ 
+List<int> & \texttt{QuerySelectMostRecentPublishedRoutes (int pathId)} & Retrieves the most recent published routes for the path. \\ \hline
+List<Status> & \texttt{QuerySelectRouteStatus(List<int> routesId)} & Returns the current status of the specified routes. \\
 \hline
-HttpResponseCode & \url{Query_updatePathScore(path_id,score)} & Stores the computed path score in the database. \\ 
+void & \texttt{QueryUpdatePathStatus(int pathId, Status status)} & Updates the path status. \\ \hline
+List<Object> & \texttt{QueryUpdatePathStatistics(int pathId)} & Updates and returns average duration and average distance for the path. \\ 
+\hline
+void & \texttt{QueryUpdatePathScore(int pathId, int score)} & Stores the computed path score in the database. \\ 
 \hline
 \end{tabularx}
 \end{table}
 % =========================
 % Navigation Microservice
 % =========================
-\subsection{Navigation Microservice}
+\subsubsection{Navigation Microservice}
 \begin{table}[H]
 \centering
 \small
@@ -643,14 +653,15 @@ HttpResponseCode & \url{Query_updatePathScore(path_id,score)} & Stores the compu
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
-Map\_data & \url{Get_NavigationDetails()} & Returns map data and navigation details for guidance. \\
+HttpResponse & \texttt{GetNavigationDetails(int routeId)} & Returns map data and navigation details for guidance. \\
 \hline
-NavigationStatus & \url{Get_NavigationStatus()} & Returns the current navigation status. \\
+HttpResponse & \texttt{GetNavigationStatus(int routeId)} & Returns the current navigation status. \\
 \hline
-NavigationStatus & \url{post_NavigationData(sensorData)} & Sends sensor data to update navigation computations. \\
+HttpResponse & \texttt{postNavigationData(int routeId, SensorData sensorData)} & Sends sensor data to update navigation computations. \\
 \hline
 \end{tabularx}
 \end{table}
+\newpage
 % =========================
 % Navigation DB
 % =========================
@@ -662,9 +673,9 @@ NavigationStatus & \url{post_NavigationData(sensorData)} & Sends sensor data to 
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
-Map\_data & \url{Query_NavigationDetails()} & Fetches navigation details from the database. \\
+MapData & \texttt{QueryNavigationDetails(int routeId)} & Fetches navigation details from the database. \\
 \hline
-Map\_data & \url{Query_NavigationData(sensorData)} & Stores navigation sensor data in the database. \\
+MapData & \texttt{QueryNavigationData(int routeId, SensorData sensorData)} & Stores navigation sensor data in the database. \\
 \hline
 \end{tabularx}
 \end{table}
