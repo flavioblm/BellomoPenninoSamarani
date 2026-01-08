@@ -1,6 +1,3 @@
-
-
-
 \subsection{Overview: high-level components and interactions}
 This section presents the overall system architecture by providing a high-level description of its components and the interaction between them. It outlines the architectural layers that composes the system and explains how they cooperate to deliver the required functionalities. Moreover, it discusses the key modeling and design choices adopted to satisfy the functional and non-functional requirements specified in the RASD document. \\[5pt]
 The system’s architecture has been structured according to a four-tier model, a widely recognized design pattern that organizes the application into separate layers, each responsible for specific functions. This layered approach improves modularity, maintainability, scalability and fault tolerance, allowing each component to evolve independently without impacting the others.
@@ -211,7 +208,7 @@ At this point, the user presses the Continue button. The system checks whether t
 \includegraphics[width=\textwidth]{Images/SD/SD13_PublishARoute.png}
 \caption{\label{fig:metamodel2}Sequence Diagram related to UC13 - Publish a route}
 \end{figure}
-This sequence diagram illustrates the flow of messages for publish a route. The Cyclist presses the Expand view button and the BBP App shows the manage route buttons. After that, the Cyclict presses the publish button and confirms the operation on the overlay showed. In order to perform the operation, the BBP App sends a PUT request to the API Gateway, which forwards the request to the ManageRoute Microservice. At this point the UC15 PathEvaluation is performed to update path statistics, especially the score and the status. When the UC15 ends, the ManageRoute Microservice sends a GET request to ManagePath Microservice that queries the ManagePath DBMS to obtain the published routes related to that path id and if there are not, the path is made public. Finally, the route is published with a query to ManageRoute DBMS, the account statistics updated with a query to Account DBMS and the interface is updated.   
+This sequence diagram illustrates the flow of messages for publish a route. The Cyclist presses the Expand view button and the BBP App shows the manage route buttons. After that, the Cyclict presses the publish button and confirms the operation on the overlay showed. In order to perform the operation, the BBP App sends a PUT request to the API Gateway, which forwards the request to the ManageRoute Microservice. At this point the UC15 PathEvaluation is performed to update path statistics, especially the score and the status. When the UC15 ends, the ManageRoute Microservice sends a GET request to ManagePath Microservice that queries the ManagePath DBMS to obtain the published routes related to that path id and if there are not, the path is made public. Finally, the route is published with a query to ManageRoute DBMS, the account statistics updated with a query to Account DBMS and the interface is updated.  
 \newpage
 \item \textbf{SD14 - Unpublish a route}
 \begin{figure}[H]
@@ -290,7 +287,7 @@ void & \texttt{PressSearchButton()} & User starts a search for available paths. 
 \hline
 void & \texttt{SelectAPath(int pathId)} & User selects a path by its id. \\
 \hline
-void & \texttt{PressStartNavigationButton()} & User starts navigation for the selected path. \\
+void & \texttt{PressStartNavigationButton(routeId)} & User starts navigation for the selected path. \\
 \hline
 void & \texttt{UserMove()} & App updates the user position during movement. \\
 \hline
@@ -437,11 +434,9 @@ void & \texttt{QueryUpdateAccStats(accountId)} & Updates account statistics for 
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
-HttpResponse & \texttt{PostCreateManual(Location startPoint, List<Location> wayPoints, Location endPoint)} & Creates a manual route from the provided points. \\
+HttpResponse & \texttt{PostCreateManual(int accountId, Location startPoint, List<Location> wayPoints, Location endPoint)} & Creates a manual route from the provided points. \\
 \hline
-HttpResponse & \texttt{GetTrackingData()} & Returns the current tracking data collected during the session. \\
-\hline
-HttpResponse & \texttt{PostCreateAutomatic(List<SensorData> data)} & Creates a route automatically from the provided tracking data. \\
+HttpResponse & \texttt{GetTrackingData(int accountId)} & Returns the current tracking data collected during the session. \\
 \hline
 HttpResponse & \texttt{PutMakeRoutePublic(int pathId, int routeId)} & Marks the specified route as public. \\
 \hline
@@ -464,11 +459,11 @@ HttpResponse & \texttt{PostRoute(Route routeDetails, String name, Status status)
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
-HttpResponse & \texttt{PostCreateManual(Location startPoint, List<Location> wayPoints, Location endPoint)} & Stores the manually created route points in the database. \\
+int & \texttt{QueryCreateRouteManual(int accountId, Location startPoint, List<Location> wayPoints, Location endPoint)} & Create a route given the path points and return the route id. \\
 \hline
-HttpResponse& \texttt{PostCreateAutomatic(List<Location> data)} & Stores automatically generated route data in the database. \\
+int & \texttt{QueryCreateRouteAutomatic(int accountId, List<SensorData> sensorsData} & Create a route given the path points automatically acquired and return the route id. \\
 \hline
-int & \texttt{QueryInsertRoute(int pathId, Route routeDetails, String name, Status status,WeatherCondition weatherConditions)} & Inserts a route and returns the generated route id. \\
+int & \texttt{QueryUpdateRoute(int pathId, Route routeDetails, String name, Status status,WeatherCondition weatherConditions)} & Updates a route given its id. \\
 \hline
 void & \texttt{QueryMakerRoutePublic(int routeId)} & Updates the route visibility to public in the database. \\
 \hline
@@ -488,13 +483,13 @@ void & \texttt{QueryDeleteRoute(int routeId)} & Deletes the route row from the d
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
-void & \texttt{startSendingSensorsData(SensorData data)} & Starts streaming sensor data from the client. \\
+void & \texttt{startSendingSensorsData(int accountId, SensorData data)} & Starts streaming sensor data from the client. \\
 \hline
-void & \texttt{stopSendingSensorData()} & Stops streaming sensor data from the client. \\
+void & \texttt{stopSendingSensorData(int accountId)} & Stops streaming sensor data from the client. \\
 \hline
 void & \texttt{PostSendSensorsData(SensorData sensorsData)} & Sends a batch of sensor readings to the backend. \\
 \hline
-SensorData & \texttt{GetTrackingData()} & Retrieves stored tracking/sensor data from the database. \\
+SensorData & \texttt{GetTrackingData(int accountId)} & Retrieves stored tracking/sensor data from the database. \\
 \hline
 \end{tabularx}
 \end{table}
@@ -509,7 +504,7 @@ SensorData & \texttt{GetTrackingData()} & Retrieves stored tracking/sensor data 
 \hline
 \textbf{return type} & \textbf{signature} & \textbf{description} \\
 \hline
-void & \texttt{QuerySaveSensorData(List<SensorData> data)} & Saves sensor data records in the database. \\
+void & \texttt{QuerySaveSensorData(int accountId, List<SensorData> data)} & Saves sensor data records in the database. \\
 \hline
 \end{tabularx}
 \end{table}
@@ -599,6 +594,8 @@ HttpResponse & \texttt{GetInventoryData(int accountId)} & Returns the inventory 
 \hline
 List<Path> & \texttt{QueryInventoryData(int accountId)} & Queries and returns inventory data for the given account id. \\
 \hline
+List<Path> & \texttt{QueryInventoryData(int accountId)} & Queries and returns inventory data for the given account id. \\
+\hline
 \end{tabularx}
 \end{table}
 % =========================
@@ -617,10 +614,11 @@ HttpResponse & \texttt{GetBestPath(Location startPoint, Location endPoint, int t
 HttpResponse & \texttt{UpdateScore(int pathId, int routeId, int mode)} & Updates the path score after publish/unpublish changes. \\ \hline
 void & \texttt{ComputeMostCommonStatus(List<Status> routesStatus)} & Computes the most common status (or average in case of tie). \\ \hline
 void & \texttt{ComputeScore(int pathId, Time avgDuration, float avgDistance, Status pathStatus)} & Computes the final score for the path. \\ \hline
+Path & \texttt{GetSelectedPath(pathId)} & Get the information about the selected path. \\ \hline
 \end{tabularx}
 \end{table}
 % =========================
-% Recommendation Microservice DB
+% Recommendation DB
 % =========================
 \subsubsection{Recommendation  DB}
 \begin{table}[H]
@@ -640,6 +638,8 @@ List<Object> & \texttt{QueryUpdatePathStatistics(int pathId)} & Updates and retu
 \hline
 void & \texttt{QueryUpdatePathScore(int pathId, int score)} & Stores the computed path score in the database. \\ 
 \hline
+Path & \texttt{QuerySelectedPath(int pathId)} & Find information about the selected path. \\ 
+\hline
 \end{tabularx}
 \end{table}
 % =========================
@@ -657,7 +657,7 @@ HttpResponse & \texttt{GetNavigationDetails(int routeId)} & Returns map data and
 \hline
 HttpResponse & \texttt{GetNavigationStatus(int routeId)} & Returns the current navigation status. \\
 \hline
-HttpResponse & \texttt{postNavigationData(int routeId, SensorData sensorData)} & Sends sensor data to update navigation computations. \\
+HttpResponse & \texttt{PostNavigationData(int routeId, SensorData sensorData)} & Sends sensor data to update navigation computations. \\
 \hline
 \end{tabularx}
 \end{table}
