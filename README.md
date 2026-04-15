@@ -208,5 +208,5 @@ Contains auxiliary LaTeX utilities and support files used to keep the documents 
 ## Authors
 
 - Flavio Bellomo
-- Salvatore Pennino 
-- Anna Samarani
+- Salvatore Pennino @salvosku
+- Anna Samarani @annasamarani
